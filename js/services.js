@@ -1,20 +1,8 @@
-var service = angular.module('arrayService', []);
-
-service.factory('notify', ['$window', "$http", function (win, $http) {
-        var result = [];
-        $http.get('phones/phones.json').success(function (data) {
-
-            angular.forEach(data, function (i, val) {
-                result.push(i);
-            });
-
-            //test.push(data)
-            //console.log(test);
-            /// return  data;
-        });
-
+// intialize the model
+var modelModule = angular.module('modelModule', []);
+modelModule.factory('ngmodel', ['$window', function (win) {
+        var model = new Model();
         return {
-            results: result
+            results: model
         }
-
     }]);
