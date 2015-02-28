@@ -1,6 +1,8 @@
-//initialize the modules
-var app = angular.module('app', [
+//initialize the modules// we inject the each module of this application
+var agendaBuilderApp = angular.module('agendaBuilderApp', [
     "maincontrollerModule",
+    "dragAndDropControllerModule",
+    "ngBootstrapUIModule"
 ]);
 
 
