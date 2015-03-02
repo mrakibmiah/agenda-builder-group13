@@ -1,15 +1,37 @@
 <html>
     <head>
-        <title>Agenda Builder|| Group 13</title>
+        <title>Agenda Builder || Group 13</title>
         <script src="bower_components/angular/angular.js"></script>
+        <link rel="stylesheet" href="css/app.css">
     </head>
     <body>
-    	yammie
-        added by rakib
-        <div>
-            <h3>Welcome to Group 13!! Hello my Friends! </h3>
+
+
+        <div id="activityForm">
+            <h3>Enter your activity details:</h3>
+            <form> 
+                <p><label>Activity Name:</label> 
+                <input type="text" name="activityName">
+
+                <p><label>Duration: </label>
+                <input type="number" name="duration"> min
+                
+                <p><label>Type: </label>
+                <select>
+                    <option value="presentation">Presentation</option>
+                    <option value="discussion">Discussion</option>
+                    <option value="break">Break</option>
+                </select>
+                
+                <p><label>Description: </label>
+                <input type="text" cols="40" rows="5" name="description">
+                
+                <p>
+                <input type="button" value="Cancel" id="cancelBtn">
+                <input type="submit" value="Save" id="saveBtn">
+            </form> 
+
         </div>
 		
-		hej hej this is tc
     </body>
 </html>

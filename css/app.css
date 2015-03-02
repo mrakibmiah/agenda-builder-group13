@@ -1,1 +1,62 @@
 /* app css stylesheet */
+body {
+    font-family: "Verdana";
+	color: black;
+}
+
+h1 {
+	font-size: 30px;
+}
+
+h2 {
+	font-size: 25px;
+}
+
+h3 {
+	font-size: 20px;
+}
+
+h4 {
+	font-size: 18px;
+}
+
+p {
+	font-size: 12px;
+}
+
+/* style for all form input*/
+input {  
+	background-color: #E7E7EF;
+	border: none;
+}
+
+
+/*   FOR ACTIVITY FORM    */
+
+/* Align label with input form */
+#activityForm label{
+  display: block;
+  float: left;
+  width : 120px;    
+}
+
+#cancelBtn {
+	background-color: red;
+	color: white;
+	border: none;
+}
+
+#saveBtn {
+	background-color: green;
+	color: white;
+	border: none;
+}
+
+/*
+input[type=submit] {
+	padding:5px 15px; background:#ccc; border:0 none;
+	cursor:pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; 
+}*/
+
