@@ -2,73 +2,66 @@
 var maincontrollerModule = angular.module('maincontrollerModule', ["modelModule"]);
 maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($scope, ngmodel) {
         $scope.tomas = 'age';
-        $scope.model = ngmodel.results;
-        $scope.model.addDay();
-        $scope.model.addActivity(new Activity("Introduction", 10, 0, ""), 0);
-        angular.forEach(ActivityType, function (sample, index) {
-            console.log("Day '" + ActivityType[index] + "' Length: " + $scope.model.days[0].getLengthByType(index) + " min");
-        });
+        $scope.model = ngmodel.results; // get the model object    
+        $scope.numberOfcolumns = $scope.model.days.length + 1;
+        $scope.addDay = function () {
+            $scope.model.addDay();
+            $scope.numberOfcolumns = $scope.model.days.length + 1;
+            console.log($scope.numberOfcolumns);
+        }
         // createTestData(ngmodel.results);
     }]);
 
-//drag and drop controller// this controller will take care of drag and drop activity
-var dragAndDropControllerModule = angular.module('dragAndDropControllerModule', ['ngDraggable']).
-        controller('DragAndDropCtrl', function ($scope) {
-            $scope.centerAnchor = true;
-            $scope.toggleCenterAnchor = function () {
-                $scope.centerAnchor = !$scope.centerAnchor
-            }
-            $scope.draggableObjects = [{name: 'one'}, {name: 'two'}, {name: 'three'}];
-            $scope.droppedObjects1 = [];
-            $scope.droppedObjects2 = [];
-            $scope.onDropComplete1 = function (data, evt) {
-                var index = $scope.droppedObjects1.indexOf(data);
-                if (index == -1)
-                    $scope.droppedObjects1.push(data);
-            }
-            $scope.onDragSuccess1 = function (data, evt) {
-                console.log("133", "$scope", "onDragSuccess1", "", evt);
-                var index = $scope.droppedObjects1.indexOf(data);
-                if (index > -1) {
-                    $scope.droppedObjects1.splice(index, 1);
-                }
-            }
-            $scope.onDragSuccess2 = function (data, evt) {
-                var index = $scope.droppedObjects2.indexOf(data);
-                if (index > -1) {
-                    $scope.droppedObjects2.splice(index, 1);
-                }
-            }
-            $scope.onDropComplete2 = function (data, evt) {
-                var index = $scope.droppedObjects2.indexOf(data);
-                if (index == -1) {
-                    $scope.droppedObjects2.push(data);
-                }
-            }
-            var inArray = function (array, obj) {
-                var index = array.indexOf(obj);
-            }
-        });
 
+//angular drag and drop function
+angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
+        controller('dragAndDropCtrl', ['$scope', 'ngmodel', function ($scope, ngmodel) {
+                $scope.model = ngmodel.results;
+                $scope.parkedActivites = $scope.model.parkedActivities;
+                $scope.days = $scope.model.days;
+                $scope.kanbanSortOptions = {
+                    accept: function (sourceItemHandleScope, destSortableScope) {
+                        //console.log('accepted');
+                        return true;
+                    }, //override to determine drag is allowed or not. default is true.
+                    itemMoved: function (event) {
+                        //event.source.itemScope.modelValue = event.dest.sortableScope.$parent.column.name;
+                        //  console.log(event);
+                        //console.log($scope.parkedActivites);
+                        console.log('itemmoved');
+                        //console.log($scope.days[0]._activities);
+                    }, //Do what you want},
+                    orderChanged: function (event) {
+                        console.log('changed');
+                        console.log(event);
+                    }, //Do what you want},
+                    containment: '#board'//optional param.
+                };
+            }]);
 
 //angular-bootstrap popup UI// we use this popup for adding new activity
-var ngBootstrapUIModule = angular.module('ngBootstrapUIModule', ['ui.bootstrap']);
+var ngBootstrapUIModule = angular.module('ngBootstrapUIModule', ['ui.bootstrap', 'modelModule']);
 ngBootstrapUIModule.controller('ModalCtrl', function ($scope, $modal, $log) {
-    $scope.items = ['item1', 'item2', 'item3'];    
+    $scope.options = [
+        {value: 1, label: 'Presentation'},
+        {value: 2, label: 'Group Work'},
+        {value: 3, label: 'Discussion'},
+        {value: 4, label: 'Break'}
+    ];
+    // $scope.correctlySelected = $scope.options[0];
     $scope.open = function (size) {
         var modalInstance = $modal.open({
             templateUrl: 'myModalContent.html',
             controller: 'ModalInstanceCtrl',
             size: size,
             resolve: {
-                items: function () {
-                    return $scope.items;
+                options: function () {
+                    return $scope.options;
                 }
             }
         });
 
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
+        modalInstance.result.then(function () {
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
@@ -77,17 +70,19 @@ ngBootstrapUIModule.controller('ModalCtrl', function ($scope, $modal, $log) {
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
-ngBootstrapUIModule.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
-    };
+ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance", "options", "ngmodel", function ($scope, $modalInstance, options, ngmodel) {
+        $scope.options = options;
+        $scope.activityType = options[0];
+        $scope.model = ngmodel.results;
+        $scope.ok = function () {
+            // alert($scope.activityType.value);
+            $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc));
+            // console.log($scope.model.parkedActivities[0].getName());
+            $modalInstance.close();
+            //$modalInstance.close($scope.selected.item);
+        };
 
-    $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-});// end of bootstrap modal
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    }]);// end of bootstrap modal

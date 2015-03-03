@@ -2,7 +2,9 @@
     <head>
         <title>Agenda Builder|| Group 13</title>
         <link rel="stylesheet" href="bower_components/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/dragndrop.css">
+        <link rel="stylesheet" href="css/ng-sortable.min.css">
+        <link rel="stylesheet" href="css/ng-sortable.style.min.css">
+        <link rel="stylesheet" href="css/board.css">
         <link rel="stylesheet" href="css/app.css">        
     </head>
     <body>
@@ -13,49 +15,88 @@
                     <h3 class="modal-title">Add New Activity</h3>
                     </div>
                     <div class="modal-body">
-                    <ul>
-                    <li ng-repeat="item in items">
-                    <a ng-click="selected.item = item">{{ item }}</a>
-                    </li>
-                    </ul>
-                    Selected: <b>{{ selected.item }}</b>
+
+                    <div class="row">
+                    <div class="form-group">
+                    <input ng-model="activityName" placeholder="Name" type="text" class="form-control"/>
+                    </div> 
+                    <div class="form-group">
+                    <input ng-model="activityDuration" placeholder="Duration in Min" type="text" class="form-control"/>             
+                    </div>  
+                    <div class="form-group">                    
+                    <select class="form-control" ng-model="activityType"
+                    ng-options="opt as opt.label for opt in options">
+                    </select>
+                    </div>  
+                    <div class="form-group">
+                    <textarea  ng-model="activityDesc" placeholder="Description" class="form-control" rows="3"></textarea>
+                    </div>  
                     </div>
+
                     <div class="modal-footer">
                     <button class="btn btn-primary" ng-click="ok()">OK</button>
                     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
                     </div>
                 </script>
-                <button class="btn btn-default" ng-click="open('sm')">Add Activity</button>
-                <div ng-show="selected">Selection from a modal: {{selected}}</div>
+                <button class="btn btn-default" ng-click="open('sm')">Add Activity</button>             
             </div>
-            <hr>
-            <div ng-controller="DragAndDropCtrl">         
-                <ul class="draggable-objects">
-                    <li  ng-repeat="obj in draggableObjects" >
-                        <div ng-drag="true" ng-drag-data="obj"> {{obj.name}} </div>
-                    </li>
-                </ul>
-                <hr/>
-                <div ng-drop="true" ng-drop-success="onDropComplete1($data,$event)">
-                    <span class="title">Drop area #1</span>
-                    <div ng-repeat="obj in droppedObjects1" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess1($data,$event)" ng-center-anchor="{{centerAnchor}}">
-                        {{obj.name}}
+            <hr>   
+            <div id="board" ng-controller="dragAndDropCtrl">
+                <div id="columns" class="row">
+                    <div class="col-sm-{{12 / numberOfcolumns}} col-xs-{{12 / numberOfcolumns}}"             
+                         data-columnindex="0" id="column0">
+                        <div class="column">
+                            <div class="columnHeader">
+                                <a title="Add New Day" ng-click="addDay()">
+                                    <i class="glyphicon glyphicon-plus addNewCard"></i></a>
+                                <span>Parked Activities</span>
+                            </div>
+                            <ul class="cards card-list" as-sortable="kanbanSortOptions" ng-model="parkedActivites">
+                                <li class="card" ng-repeat="act in parkedActivites" data-as-sortable-item>
+                                    <div class="samsa" as-sortable-item-handle>
+                                        <div class="row">
+                                            <div class="col-sm-10">
+                                                <!--<span class="btn-link"><a data-no-drag target=_top href="https://github.com/a5hik/ng-sortable">test no-drag href</a></span>-->
+                                                <span class="card-title">{{act.getName()}}-{{act.getLength()}}</span>
+                                            </div>                                   
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-{{12 / numberOfcolumns}} col-xs-{{12 / numberOfcolumns}}"
+                         ng-repeat="day in days"
+                         data-columnindex="{{$index}}" id="column{{$index}}">
+                        <div class="column">
+                            <div class="columnHeader">  
+                                <span>Day{{$index+1}}</span>
+                                <span>Start={{day.getStart()}}</span>
+                                <span>End={{day.getEnd()}}</span>
+                                <span>Total={{day.getTotalLength()}}Min</span>                                
+                            </div>
+                            <ul class="cards card-list" as-sortable="kanbanSortOptions" ng-model="day._activities">
+                                <li class="card" ng-repeat="item in day._activities" data-as-sortable-item>
+                                    <div class="samsa" as-sortable-item-handle>
+                                        <div class="row">
+                                            <div class="col-sm-10">
+                                                <!--<span class="btn-link"><a data-no-drag target=_top href="https://github.com/a5hik/ng-sortable">test no-drag href</a></span>-->
+                                                <span class="card-title">{{item.getLength()}}-{{item.getName()}}</span>
+                                            </div>                                   
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div ng-drop="true" ng-drop-success="onDropComplete2($data,$event)">
-                    <span class="title">Drop area #2</span>
+            </div>
 
-                    <div ng-repeat="obj in droppedObjects2" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess2($data,$event)" ng-center-anchor="{{centerAnchor}}">
-                        {{obj.name}}
-                    </div>
-                </div>
-                <hr>
-            </div>
         </div>
 
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-        <script src="bower_components/angular-dragndrop/ngDraggable.js"></script>
+        <script src="bower_components/angular-sortable/ng-sortable.js"></script>
         <script src="js/model.js"></script>
         <script src="js/services.js"></script>
         <script src="js/controllers.js"></script>
