@@ -8,14 +8,13 @@
         <link rel="stylesheet" href="css/app.css">        
     </head>
     <body>
-        <div class="container" ng-controller="MainCtrl"> 
+        <div class="container-fluid" ng-controller="MainCtrl"> 
             <div ng-controller="ModalCtrl">
                 <script type="text/ng-template" id="myModalContent.html">
                     <div class="modal-header">
                     <h3 class="modal-title">Add New Activity</h3>
                     </div>
                     <div class="modal-body">
-
                     <div class="row">
                     <div class="form-group">
                     <input ng-model="activityName" placeholder="Name" type="text" class="form-control"/>
@@ -51,8 +50,8 @@
                                     <i class="glyphicon glyphicon-plus addNewCard"></i></a>
                                 <span>Parked Activities</span>
                             </div>
-                            <ul class="cards card-list" as-sortable="kanbanSortOptions" ng-model="parkedActivites">
-                                <li class="card" ng-repeat="act in parkedActivites" data-as-sortable-item>
+                            <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="parkedActivites">
+                                <li style="background:{{act.getColor()}}" class="card" ng-repeat="act in parkedActivites" data-as-sortable-item>
                                     <div class="samsa" as-sortable-item-handle>
                                         <div class="row">
                                             <div class="col-sm-10">
@@ -75,8 +74,8 @@
                                 <span>End={{day.getEnd()}}</span>
                                 <span>Total={{day.getTotalLength()}}Min</span>                                
                             </div>
-                            <ul class="cards card-list" as-sortable="kanbanSortOptions" ng-model="day._activities">
-                                <li class="card" ng-repeat="item in day._activities" data-as-sortable-item>
+                            <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
+                                <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item>
                                     <div class="samsa" as-sortable-item-handle>
                                         <div class="row">
                                             <div class="col-sm-10">
@@ -91,7 +90,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <script src="bower_components/angular/angular.js"></script>

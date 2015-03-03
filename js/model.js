@@ -6,11 +6,12 @@ var ActivityType = ["Presentation", "Group Work", "Discussion", "Break"]
 // This is an activity constructor
 // When you want to create a new activity you just call
 // var act = new Activity("some activity",20,1,"Some description);
-function Activity(name, length, typeid, description) {
+function Activity(name, length, typeid, description, color) {
     var _name = name;
     var _length = length;
     var _typeid = typeid;
     var _description = description;
+    var _color = color;
 
     // sets the name of the activity
     this.setName = function (name) {
@@ -21,6 +22,17 @@ function Activity(name, length, typeid, description) {
     // get the name of the activity
     this.getName = function (name) {
         return _name;
+    }
+
+    // sets the name of the activity
+    this.setColor = function (color) {
+        _color = color;
+        model.notifyObservers();
+    }
+
+    // get the name of the activity
+    this.getColor = function () {
+        return _color;
     }
 
     // sets the length of the activity
@@ -148,7 +160,7 @@ function Day(startH, startM) {
 function Model() {
     this.days = [];
     this.parkedActivities = [];
-
+    this.colors = ["Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGrey", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "Darkorange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkSlateGrey", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DimGrey", "DodgerBlue", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Grey", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGray", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateGray", "LightSlateGrey", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "SlateGrey", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"];
     // adds a new day. if startH and startM (start hours and minutes)
     // are not provided it will set the default start of the day to 08:00
     this.addDay = function (startH, startM) {

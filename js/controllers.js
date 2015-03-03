@@ -4,6 +4,7 @@ maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($sco
         $scope.tomas = 'age';
         $scope.model = ngmodel.results; // get the model object    
         $scope.numberOfcolumns = $scope.model.days.length + 1;
+
         $scope.addDay = function () {
             $scope.model.addDay();
             $scope.numberOfcolumns = $scope.model.days.length + 1;
@@ -19,7 +20,7 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
                 $scope.model = ngmodel.results;
                 $scope.parkedActivites = $scope.model.parkedActivities;
                 $scope.days = $scope.model.days;
-                $scope.kanbanSortOptions = {
+                $scope.sortOptionListener = {
                     accept: function (sourceItemHandleScope, destSortableScope) {
                         //console.log('accepted');
                         return true;
@@ -48,6 +49,7 @@ ngBootstrapUIModule.controller('ModalCtrl', function ($scope, $modal, $log) {
         {value: 3, label: 'Discussion'},
         {value: 4, label: 'Break'}
     ];
+    $scope.colorIndex = 0;
     // $scope.correctlySelected = $scope.options[0];
     $scope.open = function (size) {
         var modalInstance = $modal.open({
@@ -57,6 +59,10 @@ ngBootstrapUIModule.controller('ModalCtrl', function ($scope, $modal, $log) {
             resolve: {
                 options: function () {
                     return $scope.options;
+                },
+                colorIndex: function () {
+                    $scope.colorIndex++;
+                    return $scope.colorIndex;
                 }
             }
         });
@@ -70,16 +76,21 @@ ngBootstrapUIModule.controller('ModalCtrl', function ($scope, $modal, $log) {
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
-ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance", "options", "ngmodel", function ($scope, $modalInstance, options, ngmodel) {
+ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance", "options", "colorIndex", "ngmodel", function ($scope, $modalInstance, options, colorIndex, ngmodel) {
         $scope.options = options;
         $scope.activityType = options[0];
         $scope.model = ngmodel.results;
+
+
         $scope.ok = function () {
+            $scope.color = $scope.model.colors[colorIndex];
             // alert($scope.activityType.value);
-            $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc));
+            $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.color));
             // console.log($scope.model.parkedActivities[0].getName());
             $modalInstance.close();
-            //$modalInstance.close($scope.selected.item);
+            //$modalInstance.close($scope.selected.item);   
+
+            console.log(colorIndex);
         };
 
         $scope.cancel = function () {
