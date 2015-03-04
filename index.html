@@ -8,88 +8,45 @@
         <link rel="stylesheet" href="styles/css/app.css">        
     </head>
     <body>
-        <div class="container-fluid" ng-controller="MainCtrl"> 
-            <div ng-controller="ModalCtrl">
-                <script type="text/ng-template" id="myModalContent.html">
-                    <div class="modal-header">
-                    <h3 class="modal-title">Add New Activity</h3>
-                    </div>
-                    <div class="modal-body">
-                    <div class="row">
-                    <div class="form-group">
-                    <input ng-model="activityName" placeholder="Name" type="text" class="form-control"/>
-                    </div> 
-                    <div class="form-group">
-                    <input ng-model="activityDuration" placeholder="Duration in Min" type="text" class="form-control"/>             
-                    </div>  
-                    <div class="form-group">                    
-                    <select class="form-control" ng-model="activityType"
-                    ng-options="opt as opt.label for opt in options">
-                    </select>
-                    </div>  
-                    <div class="form-group">
-                    <textarea  ng-model="activityDesc" placeholder="Description" class="form-control" rows="3"></textarea>
-                    </div>  
-                    </div>
-
-                    <div class="modal-footer">
-                    <button class="btn btn-primary" ng-click="ok()">OK</button>
-                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-                    </div>
-                </script>
-                <button class="btn btn-default" ng-click="open('sm')">Add Activity</button>             
+        <nav class="navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">                 
+                    <a href="#" class="navbar-brand">Agenda Builder</a>
+                </div>              
             </div>
-            <hr>   
+        </nav>
+        <div class="container-fluid" ng-controller="MainCtrl">                     
             <div id="board" ng-controller="dragAndDropCtrl">
                 <div id="columns" class="row">
-                    <div class="col-sm-{{12 / numberOfcolumns}} col-xs-{{12 / numberOfcolumns}}"             
-                         data-columnindex="0" id="column0">
-                        <div class="column">
-                            <div class="columnHeader">
-                                <a title="Add New Day" ng-click="addDay()">
-                                    <i class="glyphicon glyphicon-plus addNewCard"></i></a>
-                                <span>Parked Activities</span>
+                    <div class="leftbar_wrapper col-sm-2">
+                        <!--start creating popup modal for adding activities-->
+                        <div id="modal-pupup" ng-include="'views/partials/modal-popup.html'"></div>
+                        <hr>
+                        <label>Your Parked Activities</label>
+                        <div data-columnindex="0" id="column0" ng-include="'views/partials/leftsidebar.html'">
+                        </div>                            
+                    </div>
+                    <div class="drag-container col-sm-10">
+                        <div class="col-sm-3 col-xs-3"
+                             ng-repeat="day in days"
+                             data-columnindex="{{$index}}" id="column{{$index}}">
+                            <div class="column">
+                                <div class="columnHeader"> 
+                                    <a title="Delete Day" ng-click="removeDay($index)">
+                                        <i class="glyphicon glyphicon-remove-sign deleteDay"></i></a>
+                                    <span>Day{{$index + 1}}</span>
+                                    <span>Start={{day.getStart()}}</span>
+                                    <span>End={{day.getEnd()}}</span>
+                                    <span>Total={{day.getTotalLength()}}Min</span>                                
+                                </div>
+                                <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
+                                    <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/day.html'">                                    
+                                    </li>
+                                </ul>
                             </div>
-                            <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="parkedActivites">
-                                <li style="background:{{act.getColor()}}" class="card" ng-repeat="act in parkedActivites" data-as-sortable-item>
-                                    <div class="samsa" as-sortable-item-handle>
-                                        <div class="row">
-                                            <div class="col-sm-10">
-                                                <!--<span class="btn-link"><a data-no-drag target=_top href="https://github.com/a5hik/ng-sortable">test no-drag href</a></span>-->
-                                                <span class="card-title">{{act.getName()}}-{{act.getLength()}}</span>
-                                            </div>                                   
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
                         </div>
                     </div>
-                    <div class="col-sm-{{12 / numberOfcolumns}} col-xs-{{12 / numberOfcolumns}}"
-                         ng-repeat="day in days"
-                         data-columnindex="{{$index}}" id="column{{$index}}">
-                        <div class="column">
-                            <div class="columnHeader"> 
-                                <a title="Delete Day" ng-click="removeDay($index)">
-                                    <i class="glyphicon glyphicon-minus deleteDay"></i></a>
-                                <span>Day{{$index+1}}</span>
-                                <span>Start={{day.getStart()}}</span>
-                                <span>End={{day.getEnd()}}</span>
-                                <span>Total={{day.getTotalLength()}}Min</span>                                
-                            </div>
-                            <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
-                                <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item>
-                                    <div class="samsa" as-sortable-item-handle>
-                                        <div class="row">
-                                            <div class="col-sm-10">
-                                                <!--<span class="btn-link"><a data-no-drag target=_top href="https://github.com/a5hik/ng-sortable">test no-drag href</a></span>-->
-                                                <span class="card-title">{{item.getLength()}}-{{item.getName()}}</span>
-                                            </div>                                   
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -97,9 +54,9 @@
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
         <script src="bower_components/angular-sortable/ng-sortable.js"></script>
-        <script src="script/model/model.js"></script>
-        <script src="script/service/services.js"></script>
-        <script src="script/controller//controllers.js"></script>
+        <script src="scripts/model/model.js"></script>
+        <script src="scripts/service/services.js"></script>
+        <script src="scripts/controller/controllers.js"></script>
         <script src="app.js"></script>
     </body>
 </html>

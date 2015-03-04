@@ -1,4 +1,4 @@
-#board { margin: 0; padding: 0 10px 0 10px;}
+#board { margin: 0; padding: 0 0px 0 0px;}
 #board table {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
@@ -24,10 +24,8 @@
     text-align: center;
     background: #fafafa linear-gradient(to bottom, #ffffff, #f2f2f2) repeat-x;
     padding: 5px 0;
-    font-size: 20px;
-    font-weight: normal;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid #dddddd;
+    font-weight: bold;    
+    border-bottom: 1px solid #dddddd;   
 }
 
 #board .table thead th:first-of-type {
@@ -129,12 +127,10 @@ div.task h3 {
     -webkit-transform-style: preserve-3d;
 }
 
-#columns { margin: 20px 0 5px 0;}
-#columns > div { padding-left: 5px; padding-right:5px;}
 
 .column {
-    border: solid 1px darkgrey;
-    box-shadow: rgba(0, 0, 0, 0.7) 0 1px 10px 0;
+    border: dashed 1px darkgrey; 
+    margin-top: 10px;
 }
 .card-list {
     margin: 0;
@@ -154,19 +150,18 @@ div.task h3 {
     padding: 10px;
 }
 
-.card-title {
-    color: #7c9eb2;
-    text-decoration: none;
-    font-weight: bold;
+.card-title {  
+    display: block;
+    font-weight: bold;   
     line-height: 1.5em;
     padding: 2px 1px;
-    display: block;
+    text-align: center;
+    text-decoration: none;
 }
 
 .deleteDay, .addNewCard {
     float: right;
-    padding-right: 30px;
-    color:  green;
+    padding-right: 7px;  
 }
 
 .removeCard {
@@ -177,12 +172,13 @@ div.task h3 {
 .addNewCard:hover{
     cursor: pointer;
 }
-.deleteDay{
-    color: red;
-}
 .deleteDay:hover{
     cursor: pointer;
 }
 .columnHeader a:hover{
     text-decoration: none;
+    color: #999;
+}
+.columnHeader a{
+    color: #666;
 }
