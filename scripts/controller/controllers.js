@@ -52,7 +52,7 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
 //angular-bootstrap popup UI// we use this popup for adding new activity
 var ngBootstrapUIModule = angular.module('ngBootstrapUIModule', ['ui.bootstrap', 'modelModule']);
 ngBootstrapUIModule.controller('ModalCtrl', ['$scope', '$modal', '$log', 'ngmodel', function ($scope, $modal, $log, ngmodel) {
-        $scope.options = ngmodel.results.activityType;
+        $scope.options = ActivityType;
         $scope.open = function (size) {
             var modalInstance = $modal.open({
                 templateUrl: 'myModalContent.html',

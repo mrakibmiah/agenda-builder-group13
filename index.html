@@ -8,13 +8,9 @@
         <link rel="stylesheet" href="styles/css/app.css">        
     </head>
     <body>
-        <nav class="navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">                 
-                    <a href="#" class="navbar-brand">Agenda Builder</a>
-                </div>              
-            </div>
-        </nav>
+        <div ng-include="'views/partials/header.html'">
+
+        </div>
         <div class="container-fluid" ng-controller="MainCtrl">                     
             <div id="board" ng-controller="dragAndDropCtrl">
                 <div id="columns" class="row">
@@ -40,7 +36,7 @@
                                     <span>Total={{day.getTotalLength()}}Min</span>                                
                                 </div>
                                 <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
-                                    <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/day.html'">                                    
+                                    <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'">                                    
                                     </li>
                                 </ul>
                             </div>

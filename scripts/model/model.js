@@ -1,7 +1,12 @@
 // JavaScript Document
 
 // The possible activity types
-var ActivityType = ["Presentation", "Group Work", "Discussion", "Break"]
+ var ActivityType = [
+        {value: 0, label: 'Presentation'},
+        {value: 1, label: 'Group Work'},
+        {value: 2, label: 'Discussion'},
+        {value: 3, label: 'Break'}
+    ];
 
 // This is an activity constructor
 // When you want to create a new activity you just call
@@ -159,17 +164,8 @@ function Day(startH, startM) {
 // this is our main module that contians days and praked activites
 function Model() {
     this.days = [];
-    this.parkedActivities = [];
-    this.colors = ['black','aqua', 'blue', 'fuchsia', 'gray', 'green',
-        'lime', 'maroon', 'navy', 'olive', 'orange', 'purple',
-        'silver', 'teal', 'white', 'yellow'];
-    //this.colors = ["Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGrey", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "Darkorange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkSlateGrey", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DimGrey", "DodgerBlue", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Grey", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGray", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateGray", "LightSlateGrey", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "SlateGrey", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"];
-    this.activityType = [
-        {value: 1, label: 'Presentation'},
-        {value: 2, label: 'Group Work'},
-        {value: 3, label: 'Discussion'},
-        {value: 4, label: 'Break'}
-    ];
+    this.parkedActivities = [];   
+   
     // adds a new day. if startH and startM (start hours and minutes)
     // are not provided it will set the default start of the day to 08:00
     this.addDay = function (startH, startM) {
