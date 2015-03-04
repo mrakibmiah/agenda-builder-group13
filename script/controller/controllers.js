@@ -10,6 +10,15 @@ maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($sco
             $scope.numberOfcolumns = $scope.model.days.length + 1;
             console.log($scope.numberOfcolumns);
         }
+
+        $scope.removeDay = function (index) {
+            if (confirm('Are you sure you want to delete this? Warning!! All actvities belong to this day will be deleted too.')) {
+                $scope.model.removeDay(index);
+                $scope.numberOfcolumns = $scope.model.days.length + 1;
+            }
+
+            //console.log($scope.numberOfcolumns);
+        }
         // createTestData(ngmodel.results);
     }]);
 
@@ -42,37 +51,32 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
 
 //angular-bootstrap popup UI// we use this popup for adding new activity
 var ngBootstrapUIModule = angular.module('ngBootstrapUIModule', ['ui.bootstrap', 'modelModule']);
-ngBootstrapUIModule.controller('ModalCtrl', function ($scope, $modal, $log) {
-    $scope.options = [
-        {value: 1, label: 'Presentation'},
-        {value: 2, label: 'Group Work'},
-        {value: 3, label: 'Discussion'},
-        {value: 4, label: 'Break'}
-    ];
-    $scope.colorIndex = 0;
-    // $scope.correctlySelected = $scope.options[0];
-    $scope.open = function (size) {
-        var modalInstance = $modal.open({
-            templateUrl: 'myModalContent.html',
-            controller: 'ModalInstanceCtrl',
-            size: size,
-            resolve: {
-                options: function () {
-                    return $scope.options;
-                },
-                colorIndex: function () {
-                    $scope.colorIndex++;
-                    return $scope.colorIndex;
+ngBootstrapUIModule.controller('ModalCtrl', ['$scope', '$modal', '$log', 'ngmodel', function ($scope, $modal, $log, ngmodel) {
+        $scope.options = ngmodel.results.activityType;
+        $scope.colorIndex = 0;
+        // $scope.correctlySelected = $scope.options[0];
+        $scope.open = function (size) {
+            var modalInstance = $modal.open({
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                size: size,
+                resolve: {
+                    options: function () {
+                        return $scope.options;
+                    },
+                    colorIndex: function () {
+                        $scope.colorIndex++;
+                        return $scope.colorIndex;
+                    }
                 }
-            }
-        });
+            });
 
-        modalInstance.result.then(function () {
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
-        });
-    };
-});
+            modalInstance.result.then(function () {
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+    }]);
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
