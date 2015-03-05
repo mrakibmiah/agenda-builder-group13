@@ -61,10 +61,10 @@ input {
 
 .divDay {
 	width:350px;
-	height:474px;padding:10px;
+	height:485px;padding:10px;
 	border:1px solid #aaaaaa;
 	position: relative;
-	top: -680px;
+	top: -720px;
 	left: 400px;
 }
 
@@ -72,7 +72,8 @@ input {
 	position: relative;
 	top: -640px;
 	left: 400px;
-	padding: 5px;
+	padding: 3px;
+	font-size: 12px;
 }
 
 #buttonDay{
@@ -83,7 +84,7 @@ input {
 
 .canvasGraph{
 	position: relative;
-	top: -700px;
+	top: -740px;
 	left: 680px;
 	border:1px solid #aaaaaa;
 
