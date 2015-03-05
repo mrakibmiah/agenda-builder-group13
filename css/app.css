@@ -55,18 +55,25 @@ input {
 #divActivities {
 	width:350px;
 	height:600px;padding:10px;
-	border:1px solid #aaaaaa;
+	border:2px #aaaaaa;
 	position: relative;
-	top:10px;}
+	top:10px;
+        border-top-style: dashed;
+        border-right-style: dashed;
+        border-bottom-style: dashed;
+        border-left-style: dashed;}
 
 .divDay {
 	width:350px;
 	height:485px;padding:10px;
-	border:1px solid #aaaaaa;
+	border:2px #aaaaaa;
 	position: relative;
 	top: -720px;
 	left: 400px;
-}
+        border-top-style: dashed;
+        border-right-style: dashed;
+        border-bottom-style: dashed;
+        border-left-style: dashed;}
 
 .labelsDay{
 	position: relative;
@@ -81,6 +88,19 @@ input {
 	top: -650px;
 	left: 400px;
 }
+table, td {
+                            border: 1px solid black;
+                            border-collapse: collapse;
+                        }
+                      table,  th, td {
+                           padding: 10px;
+                                }
+                              table,  th{
+                                    border-top-color:white;
+                                    border-bottom-color: white;
+                                    border-left-color:white;
+                                    border-collapse: collapse;
+                                }
 
 .canvasGraph{
 	position: relative;
