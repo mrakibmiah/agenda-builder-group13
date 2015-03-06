@@ -1,0 +1,83 @@
+/* app css stylesheet */
+
+#activityForm label{
+    display: block;
+    float: left;
+    width : 120px;    
+}
+
+#cancelBtn {
+    background-color: red;
+    color: white;
+    border: none;
+}
+
+#saveBtn {
+    background-color: green;
+    color: white;
+    border: none;
+}
+
+#divActivities {
+    width:350px;
+    height:600px;padding:10px;
+    border:2px #aaaaaa;
+    position: relative;
+    top:10px;
+    border-top-style: dashed;
+    border-right-style: dashed;
+    border-bottom-style: dashed;
+    border-left-style: dashed;}
+
+.divDay {
+    width:350px;
+    height:485px;padding:10px;
+    border:2px #aaaaaa;
+    position: relative;
+    top: -720px;
+    left: 400px;
+    border-top-style: dashed;
+    border-right-style: dashed;
+    border-bottom-style: dashed;
+    border-left-style: dashed;}
+
+.labelsDay{
+    position: relative;
+    top: -640px;
+    left: 400px;
+    padding: 3px;
+    font-size: 12px;
+}
+
+#buttonDay{
+    position: relative;
+    top: -650px;
+    left: 400px;
+}
+table, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table,  th, td {
+    padding: 10px;
+}
+table,  th{
+    border-top-color:white;
+    border-bottom-color: white;
+    border-left-color:white;
+    border-collapse: collapse;
+}
+
+.leftbar_wrapper{
+    background: #F5F5F5;
+    height: 100%;
+    padding: 10px;
+    box-shadow: 1px 0 2px #999;
+}
+.drag-container{
+}
+.day-container{
+    border: 1px dashed #666;
+    padding: 2px;
+    margin-top: 12px;
+}
