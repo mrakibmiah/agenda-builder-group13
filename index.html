@@ -29,10 +29,10 @@
                                 <div class="columnHeader"> 
                                     <a title="Delete Day" ng-click="removeDay($index)">
                                         <i class="glyphicon glyphicon-remove-sign deleteDay"></i></a>
-                                    <span>Day{{$index + 1}}</span>
+                                    <p><span>Day {{$index + 1}}</span></p>
                                     <span>Start={{day.getStart()}}</span>
                                     <span>End={{day.getEnd()}}</span>
-                                    <span>Total={{day.getTotalLength()}}Min</span>                                
+                                   <p> <span>Total={{day.getTotalLength()}}Min</span></p>                              
                                 </div>
                                 <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
                                     <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'">                                    

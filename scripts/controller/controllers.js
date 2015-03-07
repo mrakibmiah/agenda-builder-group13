@@ -80,7 +80,7 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
         $scope.model = ngmodel.results;
 
         $scope.ok = function () {
-            $scope.color = $scope.getRandomColor(5);
+           $scope.color = $scope.getRandomColor(5);
             // alert($scope.activityType.value);
             $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.color));
             // console.log($scope.model.parkedActivities[0].getName());
@@ -88,11 +88,24 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
             //$modalInstance.close($scope.selected.item);  
         };
         $scope.getRandomColor = function (brightness) {
-            var rgb = [Math.random() * 256, Math.random() * 256, Math.random() * 256];
-            var mix = [brightness * 51, brightness * 51, brightness * 51]; //51 => 255/5
-            var mixedrgb = [rgb[0] + mix[0], rgb[1] + mix[1], rgb[2] + mix[2]].map(function (x) {
-                return Math.round(x / 2.0)
-            })
+            var val = $scope.activityType.value;
+            if (val ==0){
+                 var mixedrgb = [0,255,83];
+            }
+            else if(val ==1){
+                 var mixedrgb = [255,251,0];
+            }
+            else if (val ==2){
+                 var mixedrgb = [125,97,255];
+            }
+            else if (val ==3){
+                 var mixedrgb = [255,40,40];
+            }
+            //var rgb = [Math.random() * 256, Math.random() * 256, Math.random() * 256];
+            //var mix = [brightness * 51, brightness * 51, brightness * 51]; //51 => 255/5
+            //var mixedrgb = [rgb[0] + mix[0], rgb[1] + mix[1], rgb[2] + mix[2]].map(function (x) {
+                //return Math.round(x / 2.0)
+            //})
             return "rgb(" + mixedrgb.join(",") + ")";
         }
 
