@@ -118,19 +118,3 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
         };
     }]);// end of bootstrap modal
 
-
-ngBootstrapUIModule.controller('ProgressBar', function ($scope) {
-    $scope.randomStacked = function () {
-        $scope.stacked = [];
-        var types = ['success', 'info', 'warning', 'danger'];
-
-        for (var i = 0, n = 4; i < n; i++) {
-            $scope.stacked.push({
-                value: 20,
-                type: types[i]
-            });
-        }
-    };
-
-    $scope.randomStacked();
-});
