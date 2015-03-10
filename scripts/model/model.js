@@ -2,10 +2,10 @@
 
 // The possible activity types
 var ActivityType = [
-    {value: 0, label: 'Presentation'},
-    {value: 1, label: 'Group Work'},
-    {value: 2, label: 'Discussion'},
-    {value: 3, label: 'Break'}
+    {value: 0, label: 'Presentation',color:"blue"},
+    {value: 1, label: 'Group Work',color:"red"},
+    {value: 2, label: 'Discussion',color:"green"},
+    {value: 3, label: 'Break',color:"yellow"}
 ];
 
 // This is an activity constructor

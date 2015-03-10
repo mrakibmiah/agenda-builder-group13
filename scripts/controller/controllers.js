@@ -97,14 +97,15 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
         $scope.model = ngmodel.results;
 
         $scope.ok = function () {
-           $scope.color = $scope.getRandomColor(5);
+          // $scope.color = $scope.getRandomColor();
             // alert($scope.activityType.value);
-            $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.color));
+            $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.activityType.color));
             // console.log($scope.model.parkedActivities[0].getName());
             $modalInstance.close();
             //$modalInstance.close($scope.selected.item);  
         };
-        $scope.getRandomColor = function (brightness) {
+        $scope.getRandomColor = function () {
+            
             var val = $scope.activityType.value;
             if (val ==0){
                  var mixedrgb = [0,255,83];
