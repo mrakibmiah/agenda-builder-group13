@@ -4,6 +4,7 @@ maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($sco
         $scope.tomas = 'age';
         $scope.model = ngmodel.results; // get the model object    
         $scope.numberOfcolumns = $scope.model.days.length;
+        $scope.type = [];
 
         $scope.addDay = function () {
             $scope.model.addDay();
@@ -16,12 +17,19 @@ maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($sco
                 $scope.model.removeDay(index);
                 $scope.numberOfcolumns = $scope.model.days.length;
             }
-
             //console.log($scope.numberOfcolumns);
+        }
+        $scope.checkGraphicaLength = function (index) {
+            var totalTimeLine = 0;
+            if ($scope.model.days[index]._stacked.length) {
+                for (var i = 0; i < 4; i++) {
+                    totalTimeLine += Number($scope.model.days[index]._stacked[i].value);
+                }
+            }
+            return totalTimeLine;
         }
         // createTestData(ngmodel.results);
     }]);
-
 
 //angular drag and drop function
 angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
@@ -35,18 +43,27 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
                         return true;
                     }, //override to determine drag is allowed or not. default is true.
                     itemMoved: function (event) {
+                        // $scope.updateTimeLine(event);
                         //event.source.itemScope.modelValue = event.dest.sortableScope.$parent.column.name;
-                        //  console.log(event);
+                        sourceIndex = event.source.sortableScope.$index;
+                        destIndex = event.dest.sortableScope.$index;
+                        console.log($scope.days.length);
+                        for (var i = 0; i < Number($scope.days.length); i++) {
+                            console.log(i);
+                            $scope.days[i].upDateGraphicalTimeLine();
+                        }
+
                         //console.log($scope.parkedActivites);
-                        console.log('itemmoved');
+                        //  console.log('itemmoved');
                         //console.log($scope.days[0]._activities);
                     }, //Do what you want},
                     orderChanged: function (event) {
-                        console.log('changed');
-                        console.log(event);
+                        // console.log('changed');
+                        //console.log(event);
                     }, //Do what you want},
                     containment: '#board'//optional param.
                 };
+
             }]);
 
 //angular-bootstrap popup UI// we use this popup for adding new activity
@@ -100,3 +117,20 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
             $modalInstance.dismiss('cancel');
         };
     }]);// end of bootstrap modal
+
+
+ngBootstrapUIModule.controller('ProgressBar', function ($scope) {
+    $scope.randomStacked = function () {
+        $scope.stacked = [];
+        var types = ['success', 'info', 'warning', 'danger'];
+
+        for (var i = 0, n = 4; i < n; i++) {
+            $scope.stacked.push({
+                value: 20,
+                type: types[i]
+            });
+        }
+    };
+
+    $scope.randomStacked();
+});

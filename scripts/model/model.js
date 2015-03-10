@@ -1,12 +1,12 @@
 // JavaScript Document
 
 // The possible activity types
- var ActivityType = [
-        {value: 0, label: 'Presentation'},
-        {value: 1, label: 'Group Work'},
-        {value: 2, label: 'Discussion'},
-        {value: 3, label: 'Break'}
-    ];
+var ActivityType = [
+    {value: 0, label: 'Presentation'},
+    {value: 1, label: 'Group Work'},
+    {value: 2, label: 'Discussion'},
+    {value: 3, label: 'Break'}
+];
 
 // This is an activity constructor
 // When you want to create a new activity you just call
@@ -76,7 +76,7 @@ function Activity(name, length, typeid, description, color) {
     // This method returns the string representation of the
     // activity type.
     this.getType = function () {
-        return ActivityType[_typeid];
+        return ActivityType[_typeid].label;
     };
 }
 
@@ -86,6 +86,19 @@ function Activity(name, length, typeid, description, color) {
 function Day(startH, startM) {
     this._start = startH * 60 + startM;
     this._activities = [];
+    this._stacked = [];
+
+    this.upDateGraphicalTimeLine = function () {
+        this._stacked = [];
+        var types = ['presentation', 'group-work', 'discussion', 'break'];
+        for (var i = 0, n = 4; i < n; i++) {
+            var ln = this.getLengthByType(i);
+            this._stacked.push({
+                value:  Math.floor(ln / this.getTotalLength() * 100),
+                type: types[i]
+            });
+        }
+    }
 
     // sets the start time to new value
     this.setStart = function (startH, startM) {
@@ -164,8 +177,8 @@ function Day(startH, startM) {
 // this is our main module that contians days and praked activites
 function Model() {
     this.days = [];
-    this.parkedActivities = [];   
-   
+    this.parkedActivities = [];
+
     // adds a new day. if startH and startM (start hours and minutes)
     // are not provided it will set the default start of the day to 08:00
     this.addDay = function (startH, startM) {
