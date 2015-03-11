@@ -1,18 +1,19 @@
 <html ng-app="agendaBuilderApp">
     <head>
-        <title>Agenda Builder|| Beta</title>
+        <title>Agenda Builder || Beta</title>
         <link rel="stylesheet" href="bower_components/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="styles/css/ng-sortable.min.css">
         <link rel="stylesheet" href="styles/css/ng-sortable.style.min.css">
         <link rel="stylesheet" href="styles/css/board.css">
-        <link rel="stylesheet" href="styles/css/app.css">        
+        <link rel="stylesheet" href="styles/css/app.css">   
+        <link rel="icon" type="image/png" href="styles/img/logo.png"/>  
     </head>
     <body>
         <div ng-include="'views/partials/header.html'">
         </div>
         <div class="container-fluid" ng-controller="MainCtrl">                     
             <div id="board" ng-controller="dragAndDropCtrl">
-                <div id="columns" class="row">
+                <div id="columns" class="row" >
                     <div class="leftbar_wrapper col-sm-2">
                         <!--start creating popup modal for adding activities-->
                         <div id="modal-pupup" ng-include="'views/partials/modal-popup.html'"></div>
@@ -26,7 +27,7 @@
                              ng-repeat="day in days"
                              data-columnindex="{{$index}}" id="column{{$index}}">                           
                             <div class="column">                                
-                                <div ng-model="day._stacked" class="columnHeader">                                    
+                                <div ng-model="day._stacked" class="columnHeader DayColHeader">                                    
                                     <progress ng-show="checkGraphicaLength($index) > 0"><bar title="{{bar.type}}" ng-repeat="bar in day._stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></bar></progress>
                                     <a title="Delete Day" ng-click="removeDay($index)">
                                         <i class="glyphicon glyphicon-remove-sign deleteDay"></i></a>
