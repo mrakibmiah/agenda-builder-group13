@@ -2,7 +2,8 @@
 var agendaBuilderApp = angular.module('agendaBuilderApp', [
     "maincontrollerModule",
     "dragAndDropControllerModule",
-    "ngBootstrapUIModule"
+    "ngBootstrapUIModule",
+    "ngAnimate",
 ]);
 
 
