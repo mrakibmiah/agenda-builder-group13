@@ -2,10 +2,10 @@
 
 // The possible activity types
 var ActivityType = [
-    {value: 0, label: 'Presentation',color:"blue"},
-    {value: 1, label: 'Group Work',color:"red"},
-    {value: 2, label: 'Discussion',color:"green"},
-    {value: 3, label: 'Break',color:"yellow"}
+    {value: 0, label: 'Presentation', color: "blue"},
+    {value: 1, label: 'Group Work', color: "red"},
+    {value: 2, label: 'Discussion', color: "green"},
+    {value: 3, label: 'Break', color: "yellow"}
 ];
 
 // This is an activity constructor
@@ -91,11 +91,13 @@ function Day(startH, startM) {
     this.upDateGraphicalTimeLine = function () {
         this._stacked = [];
         var types = ['presentation', 'group-work', 'discussion', 'break'];
+        var labels = ['Presentation', 'Group Work', 'Discussion', 'Break'];
         for (var i = 0, n = 4; i < n; i++) {
             var ln = this.getLengthByType(i);
             this._stacked.push({
-                value:  Math.floor(ln / this.getTotalLength() * 100),
-                type: types[i]
+                value: Math.floor(ln / this.getTotalLength() * 100),
+                type: types[i],
+                label: labels[i]
             });
         }
     }

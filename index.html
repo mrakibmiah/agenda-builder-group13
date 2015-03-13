@@ -27,7 +27,7 @@
                              data-columnindex="{{$index}}" id="column{{$index}}">                           
                             <div class="column">                                
                                 <div ng-model="day._stacked" class="columnHeader">                                    
-                                    <progress class="sample-show-hide" ng-show="checkGraphicaLength($index) > 0"><bar title="{{bar.type}}" ng-repeat="bar in day._stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></bar></progress>
+                                    <progress class="sample-show-hide" ng-show="checkGraphicaLength($index) > 0"><bar tooltip="{{bar.label}}" ng-repeat="bar in day._stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></bar></progress>
                                     <a title="Delete Day" ng-click="removeDay($index)">
                                         <i class="glyphicon glyphicon-remove-sign deleteDay"></i></a>
                                     <p><span>Day {{$index + 1}}</span></p>
