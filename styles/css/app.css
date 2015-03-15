@@ -1,21 +1,13 @@
 /* app css stylesheet */
 
+body {
+	font: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+}
+
 #activityForm label{
     display: block;
     float: left;
     width : 120px;    
-}
-
-#cancelBtn {
-    background-color: red;
-    color: white;
-    border: none;
-}
-
-#saveBtn {
-    background-color: green;
-    color: white;
-    border: none;
 }
 
 #divActivities {
@@ -69,7 +61,7 @@ table,  th{
 }
 
 .leftbar_wrapper{
-    background: #F5F5F5;
+    background: white;
     height: 100%;
     padding: 10px;
     box-shadow: 1px 0 2px #999;
@@ -82,6 +74,130 @@ table,  th{
     margin-top: 12px;
 }
 
+<<<<<<< HEAD
 p {
     padding-left: 10px;
 }
+=======
+.DayColHeader {
+    background: #BEB799;
+}
+
+/* graphical timeline representation*/
+.progress-bar-presentation {
+    background-color: blue;
+}
+.progress-bar-group-work {
+    background-color: red;
+}
+.progress-bar-discussion {
+    background-color: green;
+}
+.progress-bar-break {
+    background-color: yellow;
+}
+
+/*Angular Animation*/
+
+.animate-enter, 
+.animate-leave
+{ 
+    -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    position: relative;
+    display: block;
+} 
+
+.animate-enter.animate-enter-active, 
+.animate-leave {
+    opacity: 1;
+    top: 0;
+    height: 30px;
+}
+
+.animate-leave.animate-leave-active,
+.animate-enter {
+    opacity: 0;
+    top: -50px;
+    height: 0px;
+}
+
+ul.cards > li:hover{
+    border: 1px solid #333;
+    transition: linear all .1s;
+}
+
+
+
+
+/*header customized style*/
+.navbar-inverse {
+    background-color: #00ACC9;
+	color: white;
+
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+/* botton-primary (add activity & OK) style */
+.btn-primary {
+  background-image: -webkit-linear-gradient(top, #428bca 0%, #2d6ca2 100%);
+  background-image:         linear-gradient(to bottom, #CC0052 0%, #CC0052 100%);
+  border-color: #CC0052;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-image: -webkit-linear-gradient(top, #428bca 0%, #2d6ca2 100%);
+  background-image:         linear-gradient(to bottom, #99003D 0%, #99003D 100%);
+  border-color: #99003D;
+}
+
+.btn-primary:active,
+.btn-primary.active {
+  background-color: #CC0052;
+  border-color: #CC0052;
+}
+
+/* button-add-day style */
+.btn-add-day {
+  background-color: #BEB799;
+  border-color: #BEB799;
+}
+
+.btn-add-day:hover,
+.btn-primary:focus {
+  background-color: #D6D1BB;
+  border-color: #D6D1BB;
+}
+
+/* button-warning (Cancel) style */
+.btn-warning {
+  background-image: -webkit-linear-gradient(top, #f0ad4e 0%, #eb9316 100%);
+  background-image:         linear-gradient(to bottom, white 0%, white 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff0ad4e', endColorstr='#ffeb9316', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  background-repeat: repeat-x;
+  border-color: #CC0052;
+  color: #CC0052;
+}
+.btn-warning:hover,
+.btn-warning:focus {
+  background-color: white;
+  border-color: #CC0052;
+  background-position: 0 -15px;
+   color: #CC0052;
+}
+.btn-warning:active,
+.btn-warning.active {
+  background-color: white;
+  color: #CC0052;
+}
+  
+>>>>>>> e85bb75133933b88be402ef54c23d1464b86b943

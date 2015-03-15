@@ -131,12 +131,15 @@ div.task h3 {
 .column {
     border: dashed 1px darkgrey; 
     margin-top: 10px;
+    -webkit-transition: all linear 0.5s;
+    transition: all linear 0.5s;
 }
 .card-list {
     margin: 0;
     padding: 0;
     list-style: none;
     min-height: 50px;
+
 }
 
 .noMargin { margin-bottom: 0;}

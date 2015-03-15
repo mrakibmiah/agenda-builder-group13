@@ -4,6 +4,7 @@ maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($sco
         $scope.tomas = 'age';
         $scope.model = ngmodel.results; // get the model object    
         $scope.numberOfcolumns = $scope.model.days.length;
+        $scope.type = [];
 
         $scope.addDay = function () {
             $scope.model.addDay();
@@ -16,12 +17,19 @@ maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($sco
                 $scope.model.removeDay(index);
                 $scope.numberOfcolumns = $scope.model.days.length;
             }
-
             //console.log($scope.numberOfcolumns);
+        }
+        $scope.checkGraphicaLength = function (index) {
+            var totalTimeLine = 0;
+            if ($scope.model.days[index]._stacked.length) {
+                for (var i = 0; i < 4; i++) {
+                    totalTimeLine += Number($scope.model.days[index]._stacked[i].value);
+                }
+            }
+            return totalTimeLine;
         }
         // createTestData(ngmodel.results);
     }]);
-
 
 //angular drag and drop function
 angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
@@ -35,18 +43,27 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
                         return true;
                     }, //override to determine drag is allowed or not. default is true.
                     itemMoved: function (event) {
+                        // $scope.updateTimeLine(event);
                         //event.source.itemScope.modelValue = event.dest.sortableScope.$parent.column.name;
-                        //  console.log(event);
+                        sourceIndex = event.source.sortableScope.$index;
+                        destIndex = event.dest.sortableScope.$index;
+                        console.log($scope.days.length);
+                        for (var i = 0; i < Number($scope.days.length); i++) {
+                            console.log(i);
+                            $scope.days[i].upDateGraphicalTimeLine();
+                        }
+
                         //console.log($scope.parkedActivites);
-                        console.log('itemmoved');
+                        //  console.log('itemmoved');
                         //console.log($scope.days[0]._activities);
                     }, //Do what you want},
                     orderChanged: function (event) {
-                        console.log('changed');
-                        console.log(event);
+                        // console.log('changed');
+                        //console.log(event);
                     }, //Do what you want},
                     containment: '#board'//optional param.
                 };
+
             }]);
 
 //angular-bootstrap popup UI// we use this popup for adding new activity
@@ -80,14 +97,15 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
         $scope.model = ngmodel.results;
 
         $scope.ok = function () {
-           $scope.color = $scope.getRandomColor(5);
+          // $scope.color = $scope.getRandomColor();
             // alert($scope.activityType.value);
-            $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.color));
+            $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.activityType.color));
             // console.log($scope.model.parkedActivities[0].getName());
             $modalInstance.close();
             //$modalInstance.close($scope.selected.item);  
         };
-        $scope.getRandomColor = function (brightness) {
+        $scope.getRandomColor = function () {
+            
             var val = $scope.activityType.value;
             if (val ==0){
                  var mixedrgb = [0,255,83];
@@ -113,3 +131,4 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
             $modalInstance.dismiss('cancel');
         };
     }]);// end of bootstrap modal
+
