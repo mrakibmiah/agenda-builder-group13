@@ -4,6 +4,11 @@ body {
 	font: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
 }
 
+.navbar-brand {
+  font-size: 23px;
+  font-family: "Chalkduster";
+}
+
 #activityForm label{
     display: block;
     float: left;
@@ -74,22 +79,27 @@ table,  th{
     margin-top: 12px;
 }
 
+<<<<<<< HEAD
+p {
+    padding-left: 10px;
+}
+=======
 .DayColHeader {
     background: #BEB799;
 }
 
 /* graphical timeline representation*/
 .progress-bar-presentation {
-    background-color: blue;
+    background-color: #587498; /*blue*/
 }
 .progress-bar-group-work {
-    background-color: red;
+    background-color: #E86850; /*red*/
 }
 .progress-bar-discussion {
-    background-color: green;
+    background-color: #55A763; /*green*/
 }
 .progress-bar-break {
-    background-color: yellow;
+    background-color: #FFD800; /*yellow*/
 }
 
 /*Angular Animation*/
@@ -195,3 +205,4 @@ ul.cards > li:hover{
   color: #CC0052;
 }
   
+>>>>>>> e85bb75133933b88be402ef54c23d1464b86b943
