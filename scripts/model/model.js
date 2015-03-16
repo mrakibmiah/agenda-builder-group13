@@ -118,13 +118,9 @@ function Day(startH, startM) {
         }
     }
 
-    this.getAccLength = function (index) {
-    }
-
     // sets the start time to new value
     this.setStart = function (startH, startM) {
-        this._start = startH * 60 + startM;
-        model.notifyObservers();
+        this._start = startH * 60 + startM;       
     }
 
     // returns the total length of the acitivities in 

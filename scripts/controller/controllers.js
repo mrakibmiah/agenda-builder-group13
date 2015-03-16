@@ -59,7 +59,6 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
                             });
                         }
 
-
                         //console.log($scope.parkedActivites);
                         //  console.log('itemmoved');
                         //console.log($scope.days[0]._activities);
@@ -79,16 +78,11 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
                     }, //Do what you want},
                     containment: '#board'//optional param.
                 };
-                $scope.yo = function (length) {
-                    console.log(length);
-                    $scope.lastValue = $scope.lastValue + length;
-                    console.log($scope.lastValue);
-                }
 
             }]);
 
 //angular-bootstrap popup UI// we use this popup for adding new activity
-var ngBootstrapUIModule = angular.module('ngBootstrapUIModule', ['ui.bootstrap', 'modelModule']);
+var ngBootstrapUIModule = angular.module('ngBootstrapUIModule', ['modelModule']);
 ngBootstrapUIModule.controller('ModalCtrl', ['$scope', '$modal', '$log', 'ngmodel', function ($scope, $modal, $log, ngmodel) {
         $scope.options = ActivityType;
         $scope.open = function (size) {
@@ -153,3 +147,33 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
         };
     }]);// end of bootstrap modal
 
+maincontrollerModule.controller('TimepickerDemoCtrl', ['$scope', 'ngmodel', function ($scope, ngmodel) {
+
+        var d = new Date();
+        d.setHours(8);
+        d.setMinutes(0);
+        $scope.mytime = d;
+
+        $scope.hstep = 1;
+        $scope.mstep = 15;
+
+        $scope.options = {
+            hstep: [1, 2, 3],
+            mstep: [1, 5, 10, 15, 25, 30]
+        };
+        $scope.changed = function (index) {
+            ngmodel.results.days[index].setStart($scope.mytime.getHours(), $scope.mytime.getMinutes())
+            $scope.updateActivitiesTime();
+        };
+
+        $scope.updateActivitiesTime = function () {
+            for (var i = 0; i < Number($scope.days.length); i++) {
+                var flag = $scope.days[i]._start;
+                angular.forEach($scope.days[i]._activities, function (activity) {
+                    activity.setStart(flag);
+                    activity.setEnd(flag + activity.getLength());
+                    flag = flag + activity.getLength();
+                });
+            }
+        }
+    }]);
