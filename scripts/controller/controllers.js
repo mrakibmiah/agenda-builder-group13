@@ -1,10 +1,9 @@
 // intilaie the controller module
 var maincontrollerModule = angular.module('maincontrollerModule', ["modelModule"]);
-maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($scope, ngmodel) {
-        $scope.tomas = 'age';
+maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($scope, ngmodel) {      
         $scope.model = ngmodel.results; // get the model object    
         $scope.numberOfcolumns = $scope.model.days.length;
-        $scope.type = [];
+        $scope.type = [];     
 
         $scope.addDay = function () {
             $scope.model.addDay();
@@ -53,16 +52,40 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
                             $scope.days[i].upDateGraphicalTimeLine();
                         }
 
+                        // update the start and end time of each activity
+                        for (var i = 0; i < Number($scope.days.length); i++) {
+                            var flag = $scope.days[i]._start;
+                            angular.forEach($scope.days[i]._activities, function (activity) {
+                                activity.setStart(flag);
+                                activity.setEnd(flag + activity.getLength());
+                                flag = flag + activity.getLength();
+                            });
+                        }
+
                         //console.log($scope.parkedActivites);
                         //  console.log('itemmoved');
                         //console.log($scope.days[0]._activities);
                     }, //Do what you want},
                     orderChanged: function (event) {
+                        // update the start and end time of each activity
+                        for (var i = 0; i < Number($scope.days.length); i++) {
+                            var flag = $scope.days[i]._start;
+                            angular.forEach($scope.days[i]._activities, function (activity) {
+                                activity.setStart(flag);
+                                activity.setEnd(flag + activity.getLength());
+                                flag = flag + activity.getLength();
+                            });
+                        }
                         // console.log('changed');
                         //console.log(event);
                     }, //Do what you want},
                     containment: '#board'//optional param.
                 };
+                $scope.yo = function (length) {
+                    console.log(length);
+                    $scope.lastValue = $scope.lastValue + length;
+                    console.log($scope.lastValue);
+                }
 
             }]);
 
@@ -97,7 +120,7 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
         $scope.model = ngmodel.results;
 
         $scope.ok = function () {
-          // $scope.color = $scope.getRandomColor();
+            // $scope.color = $scope.getRandomColor();
             // alert($scope.activityType.value);
             $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.activityType.color));
             // console.log($scope.model.parkedActivities[0].getName());
@@ -105,24 +128,24 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
             //$modalInstance.close($scope.selected.item);  
         };
         $scope.getRandomColor = function () {
-            
+
             var val = $scope.activityType.value;
-            if (val ==0){
-                 var mixedrgb = [0,255,83];
+            if (val == 0) {
+                var mixedrgb = [0, 255, 83];
             }
-            else if(val ==1){
-                 var mixedrgb = [255,251,0];
+            else if (val == 1) {
+                var mixedrgb = [255, 251, 0];
             }
-            else if (val ==2){
-                 var mixedrgb = [125,97,255];
+            else if (val == 2) {
+                var mixedrgb = [125, 97, 255];
             }
-            else if (val ==3){
-                 var mixedrgb = [255,40,40];
+            else if (val == 3) {
+                var mixedrgb = [255, 40, 40];
             }
             //var rgb = [Math.random() * 256, Math.random() * 256, Math.random() * 256];
             //var mix = [brightness * 51, brightness * 51, brightness * 51]; //51 => 255/5
             //var mixedrgb = [rgb[0] + mix[0], rgb[1] + mix[1], rgb[2] + mix[2]].map(function (x) {
-                //return Math.round(x / 2.0)
+            //return Math.round(x / 2.0)
             //})
             return "rgb(" + mixedrgb.join(",") + ")";
         }

@@ -17,7 +17,23 @@ function Activity(name, length, typeid, description, color) {
     var _typeid = typeid;
     var _description = description;
     var _color = color;
+    var _start = 0;
+    var _end = 0
 
+    this.setStart = function (start) {
+        _start = start;
+    }
+    this.setEnd = function (end) {
+        _end = end;
+    }
+    this.getEnd = function () {
+        var end = _end;
+        return Math.floor(end / 60) + ":" + end % 60;
+    };
+
+    this.getStart = function () {
+        return Math.floor(_start / 60) + ":" + _start % 60;
+    };
     // sets the name of the activity
     this.setName = function (name) {
         _name = name;
@@ -100,6 +116,9 @@ function Day(startH, startM) {
                 label: labels[i]
             });
         }
+    }
+
+    this.getAccLength = function (index) {
     }
 
     // sets the start time to new value
