@@ -32,9 +32,9 @@
                                     <a title="Delete Day" ng-click="removeDay($index)">
                                         <i class="glyphicon glyphicon-remove-sign deleteDay"></i></a>
                                     <p><span>Day {{$index + 1}}</span></p>       
-                                    <p ><span>Start Time: {{day.getStart()}}</span></p>
-                                    <p><span>End Time: {{day.getEnd()}}</span></p>
-                                    <p> <span>Total Length: {{day.getTotalLength()}}Min</span></p>                              
+                                    <p><span>Start Time: {{day.getStart()}}</span><br/>
+                                    <span>End Time: {{day.getEnd()}}</span><br/>
+                                    <span>Total Length: {{day.getTotalLength()}}Min</span></p>                              
                                 </div>
                                 <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
                                     <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'">                                    
