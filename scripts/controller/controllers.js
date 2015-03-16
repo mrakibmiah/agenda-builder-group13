@@ -1,9 +1,9 @@
 // intilaie the controller module
 var maincontrollerModule = angular.module('maincontrollerModule', ["modelModule"]);
-maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($scope, ngmodel) {      
+maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($scope, ngmodel) {
         $scope.model = ngmodel.results; // get the model object    
         $scope.numberOfcolumns = $scope.model.days.length;
-        $scope.type = [];     
+        $scope.type = [];
 
         $scope.addDay = function () {
             $scope.model.addDay();
@@ -48,12 +48,9 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
                         destIndex = event.dest.sortableScope.$index;
                         console.log($scope.days.length);
                         for (var i = 0; i < Number($scope.days.length); i++) {
-                            console.log(i);
+                            // update the graphical timeline
                             $scope.days[i].upDateGraphicalTimeLine();
-                        }
-
-                        // update the start and end time of each activity
-                        for (var i = 0; i < Number($scope.days.length); i++) {
+                            // update the start and end time of each activity
                             var flag = $scope.days[i]._start;
                             angular.forEach($scope.days[i]._activities, function (activity) {
                                 activity.setStart(flag);
@@ -61,6 +58,7 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
                                 flag = flag + activity.getLength();
                             });
                         }
+
 
                         //console.log($scope.parkedActivites);
                         //  console.log('itemmoved');
