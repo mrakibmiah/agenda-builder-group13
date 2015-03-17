@@ -88,13 +88,18 @@ function Day(startH, startM) {
     this._start = startH * 60 + startM;
     this._activities = [];
     this._stacked = [];
-/*    this._accLength = 8;
+ //   this._accLength = 8;
 
 
-    this.updateAccLength = function (length) {
-        this._accLength += this._accLength + length;
-    }
-*/
+    this.getAccLength = function () {
+        var accLength = 8;
+        angular.forEach(this._activities, function (activity) {
+                accLength += activity.getLength();
+        });
+        return accLength; 
+//        return 5201314;
+    };
+
     this.upDateGraphicalTimeLine = function () {
         this._stacked = [];
         var types = ['presentation', 'group-work', 'discussion', 'break'];

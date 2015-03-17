@@ -27,7 +27,7 @@ maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($sco
                 }
             }
             return totalTimeLine;
-        }
+        }  
         // createTestData(ngmodel.results);
     }]);
 
