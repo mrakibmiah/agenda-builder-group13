@@ -17,6 +17,7 @@
                     <div class="leftbar_wrapper col-sm-2">
                         <!--start creating popup modal for adding activities-->
                         <div id="modal-pupup" ng-include="'views/partials/modal-popup.html'"></div>
+                        <div id="modal-edit" ng-include="'views/partials/newhtml.html'"></div>
                         <hr>
                         <label>Your Parked Activities</label>
                         <div data-columnindex="0" id="column0" ng-include="'views/partials/leftsidebar.html'">
@@ -38,7 +39,8 @@
 
                                 </div>
                                 <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
-                                    <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'">                                    
+                                    <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'" ng-click= "open('sm',a,b)">
+                                        
                                     </li>
                                 </ul>
                             </div>

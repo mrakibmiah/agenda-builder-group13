@@ -1,6 +1,6 @@
 // intilaie the controller module
 var maincontrollerModule = angular.module('maincontrollerModule', ["modelModule"]);
-maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($scope, ngmodel) {
+maincontrollerModule.controller('MainCtrl', ['$scope', '$modal', '$log', 'ngmodel', function ($scope, $modal, $log, ngmodel){
         $scope.tomas = 'age';
         $scope.model = ngmodel.results; // get the model object    
         $scope.numberOfcolumns = $scope.model.days.length;
@@ -29,6 +29,27 @@ maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($sco
             return totalTimeLine;
         }
         // createTestData(ngmodel.results);
+                       $scope.options = ActivityType;
+        $scope.open = function (size,d,a) {
+            var modalInstance = $modal.open({
+                templateUrl:'myTaskviewContent.html',
+                controller:'ModalInstanceCtrl',
+                size: size,
+                day: d,
+                position : a,
+                resolve: {
+                    options: function () {
+                        return $scope.options;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function () {
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+        
     }]);
 
 //angular drag and drop function
@@ -63,6 +84,7 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
                     }, //Do what you want},
                     containment: '#board'//optional param.
                 };
+     
 
             }]);
 
@@ -70,7 +92,7 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
 var ngBootstrapUIModule = angular.module('ngBootstrapUIModule', ['ui.bootstrap', 'modelModule']);
 ngBootstrapUIModule.controller('ModalCtrl', ['$scope', '$modal', '$log', 'ngmodel', function ($scope, $modal, $log, ngmodel) {
         $scope.options = ActivityType;
-        $scope.open = function (size) {
+        $scope.open1 = function (size) {
             var modalInstance = $modal.open({
                 templateUrl: 'myModalContent.html',
                 controller: 'ModalInstanceCtrl',
@@ -100,6 +122,14 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
           // $scope.color = $scope.getRandomColor();
             // alert($scope.activityType.value);
             $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.activityType.color));
+            // console.log($scope.model.parkedActivities[0].getName());
+            $modalInstance.close();
+            //$modalInstance.close($scope.selected.item);  
+        };
+         $scope.change = function () {
+          // $scope.color = $scope.getRandomColor();
+            // alert($scope.activityType.value);
+            $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.activityType.color),Day($modalInstance.d));
             // console.log($scope.model.parkedActivities[0].getName());
             $modalInstance.close();
             //$modalInstance.close($scope.selected.item);  
