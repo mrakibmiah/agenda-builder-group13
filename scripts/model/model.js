@@ -18,7 +18,7 @@ function Activity(name, length, typeid, description, color) {
     var _description = description;
     var _color = color;
     var _start = 0;
-    var _end = 0
+    var _end = 0;
 
     this.setStart = function (start) {
         _start = start;
