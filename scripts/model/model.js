@@ -17,7 +17,23 @@ function Activity(name, length, typeid, description, color) {
     var _typeid = typeid;
     var _description = description;
     var _color = color;
+    var _start = 0;
+    var _end = 0;
 
+    this.setStart = function (start) {
+        _start = start;
+    }
+    this.setEnd = function (end) {
+        _end = end;
+    }
+    this.getEnd = function () {
+        var end = _end;
+        return Math.floor(end / 60) + ":" + end % 60;
+    };
+
+    this.getStart = function () {
+        return Math.floor(_start / 60) + ":" + _start % 60;
+    };
     // sets the name of the activity
     this.setName = function (name) {
         _name = name;
@@ -78,6 +94,7 @@ function Activity(name, length, typeid, description, color) {
     this.getType = function () {
         return ActivityType[_typeid].label;
     };
+
 }
 
 // This is a day consturctor. You can use it to create days, 
@@ -87,23 +104,35 @@ function Day(startH, startM) {
     this._start = startH * 60 + startM;
     this._activities = [];
     this._stacked = [];
+ //   this._accLength = 8;
+
+
+    this.getAccLength = function () {
+        var accLength = 8;
+        angular.forEach(this._activities, function (activity) {
+                accLength += activity.getLength();
+        });
+        return accLength; 
+//        return 5201314;
+    };
 
     this.upDateGraphicalTimeLine = function () {
         this._stacked = [];
         var types = ['presentation', 'group-work', 'discussion', 'break'];
+        var labels = ['Presentation', 'Group Work', 'Discussion', 'Break'];
         for (var i = 0, n = 4; i < n; i++) {
             var ln = this.getLengthByType(i);
             this._stacked.push({
-                value:  Math.floor(ln / this.getTotalLength() * 100),
-                type: types[i]
+                value: Math.floor(ln / this.getTotalLength() * 100),
+                type: types[i],
+                label: labels[i]
             });
         }
     }
 
     // sets the start time to new value
     this.setStart = function (startH, startM) {
-        this._start = startH * 60 + startM;
-        model.notifyObservers();
+        this._start = startH * 60 + startM;       
     }
 
     // returns the total length of the acitivities in 
@@ -116,6 +145,7 @@ function Day(startH, startM) {
         });
         return totalLength;
     };
+
 
     // returns the string representation Hours:Minutes of 
     // the end time of the day
@@ -158,6 +188,7 @@ function Day(startH, startM) {
             this._activities.splice(position, 0, activity);
         } else {
             this._activities.push(activity);
+
         }
     };
 
@@ -180,6 +211,7 @@ function Day(startH, startM) {
         var activity = this._removeActivity(oldposition);
         this._addActivity(activity, newposition);
     };
+
 }
 
 
@@ -218,6 +250,13 @@ function Model() {
 
     this.removeDay = function (index) {
         this.days.splice(index, 1);
+    }
+
+    this.removeActivityDay = function (indexDay, index) {
+        act=this.days[indexDay]._activities.splice(index,1)[0];
+        this.notifyObservers;
+        console.log("remove");
+        return act;
     }
 
     // add an activity to parked activities

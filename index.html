@@ -24,18 +24,30 @@
                         </div>                            
                     </div>
                     <div class="drag-container col-sm-10">
+<<<<<<< HEAD
                         <div class="col-sm-3 col-xs-3"
                              ng-repeat="day in days" ng-init="outerIndex = $index"
+=======
+                        <div class="col-sm-3 col-xs-3 animate-repeat"
+                             ng-repeat="day in days"
+>>>>>>> origin/development
                              data-columnindex="{{$index}}" id="column{{$index}}">                           
                             <div class="column">                                
-                                <div ng-model="day._stacked" class="columnHeader DayColHeader">                                    
-                                    <progress ng-show="checkGraphicaLength($index) > 0"><bar title="{{bar.type}}" ng-repeat="bar in day._stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></bar></progress>
+                                <div ng-model="day._stacked" class="columnHeader">                                    
+                                    <progress class="sample-show-hide" ng-show="checkGraphicaLength($index) > 0"><bar tooltip="{{bar.label}}" ng-repeat="bar in day._stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></bar></progress>
                                     <a title="Delete Day" ng-click="removeDay($index)">
                                         <i class="glyphicon glyphicon-remove-sign deleteDay"></i></a>
+                                    <div ng-controller="TimepickerDemoCtrl"><timepicker ng-model="mytime" ng-change="changed($index)" hour-step="hstep" minute-step="mstep" show-meridian="false"></timepicker></div>                                                        
                                     <p><span>Day {{$index + 1}}</span></p>
+<<<<<<< HEAD
                                     <p align="left"><span>Start: {{day.getStart()}}</span></p>
                                     <p align="left"><span>End: {{day.getEnd()}}</span></p>
                                    <p> <span>Total: {{day.getTotalLength()}}Min</span></p>
+=======
+                                    <span>Start={{day.getStart()}}</span>
+                                    <span>End={{day.getEnd()}}</span>
+                                    <p><span>Total={{day.getTotalLength()}}Min</span></p>                             
+>>>>>>> origin/development
                                 </div>
                                 <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
                                     <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'" ng-click= "open('sm',outerIndex,$index)">

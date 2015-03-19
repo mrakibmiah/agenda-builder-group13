@@ -1,7 +1,11 @@
 // intilaie the controller module
 var maincontrollerModule = angular.module('maincontrollerModule', ["modelModule"]);
+<<<<<<< HEAD
 maincontrollerModule.controller('MainCtrl', ['$scope', '$modal', '$log', 'ngmodel', function ($scope, $modal, $log, ngmodel){
         $scope.tomas = 'age';
+=======
+maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($scope, ngmodel) {
+>>>>>>> origin/development
         $scope.model = ngmodel.results; // get the model object    
         $scope.numberOfcolumns = $scope.model.days.length;
         $scope.type = [];
@@ -27,8 +31,9 @@ maincontrollerModule.controller('MainCtrl', ['$scope', '$modal', '$log', 'ngmode
                 }
             }
             return totalTimeLine;
-        }
+        }  
         // createTestData(ngmodel.results);
+<<<<<<< HEAD
                        $scope.options = ActivityType;
         $scope.open = function (size,d,a) {
             var modalInstance = $modal.open({
@@ -51,6 +56,21 @@ console.log(d,a);
             });
         };
         
+=======
+        $scope.removeActivity = function(index){
+            $scope.model.removeParkedActivity(index);
+        }
+
+        $scope.removeActivityDay = function(indexDay, index){
+            $scope.model.removeActivityDay(indexDay, index);
+            $scope.model.days[indexDay].upDateGraphicalTimeLine();
+            
+        }
+        $scope.moveActivityBack = function(indexDay, index){
+            $scope.model.moveActivity(indexDay, index, null, null);
+            $scope.model.days[indexDay].upDateGraphicalTimeLine();
+        }
+>>>>>>> origin/development
     }]);
 
 //angular drag and drop function
@@ -71,8 +91,15 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
                         destIndex = event.dest.sortableScope.$index;
                         console.log($scope.days.length);
                         for (var i = 0; i < Number($scope.days.length); i++) {
-                            console.log(i);
+                            // update the graphical timeline
                             $scope.days[i].upDateGraphicalTimeLine();
+                            // update the start and end time of each activity
+                            var flag = $scope.days[i]._start;
+                            angular.forEach($scope.days[i]._activities, function (activity) {
+                                activity.setStart(flag);
+                                activity.setEnd(flag + activity.getLength());
+                                flag = flag + activity.getLength();
+                            });
                         }
 
                         //console.log($scope.parkedActivites);
@@ -80,6 +107,15 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
                         //console.log($scope.days[0]._activities);
                     }, //Do what you want},
                     orderChanged: function (event) {
+                        // update the start and end time of each activity
+                        for (var i = 0; i < Number($scope.days.length); i++) {
+                            var flag = $scope.days[i]._start;
+                            angular.forEach($scope.days[i]._activities, function (activity) {
+                                activity.setStart(flag);
+                                activity.setEnd(flag + activity.getLength());
+                                flag = flag + activity.getLength();
+                            });
+                        }
                         // console.log('changed');
                         //console.log(event);
                     }, //Do what you want},
@@ -90,7 +126,7 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
             }]);
 
 //angular-bootstrap popup UI// we use this popup for adding new activity
-var ngBootstrapUIModule = angular.module('ngBootstrapUIModule', ['ui.bootstrap', 'modelModule']);
+var ngBootstrapUIModule = angular.module('ngBootstrapUIModule', ['modelModule']);
 ngBootstrapUIModule.controller('ModalCtrl', ['$scope', '$modal', '$log', 'ngmodel', function ($scope, $modal, $log, ngmodel) {
         $scope.options = ActivityType;
         $scope.open1 = function (size) {
@@ -120,7 +156,7 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
         $scope.model = ngmodel.results;
 
         $scope.ok = function () {
-          // $scope.color = $scope.getRandomColor();
+            // $scope.color = $scope.getRandomColor();
             // alert($scope.activityType.value);
             $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.activityType.color));
             // console.log($scope.model.parkedActivities[0].getName());
@@ -136,24 +172,24 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
             //$modalInstance.close($scope.selected.item);  
         };
         $scope.getRandomColor = function () {
-            
+
             var val = $scope.activityType.value;
-            if (val ==0){
-                 var mixedrgb = [0,255,83];
+            if (val == 0) {
+                var mixedrgb = [0, 255, 83];
             }
-            else if(val ==1){
-                 var mixedrgb = [255,251,0];
+            else if (val == 1) {
+                var mixedrgb = [255, 251, 0];
             }
-            else if (val ==2){
-                 var mixedrgb = [125,97,255];
+            else if (val == 2) {
+                var mixedrgb = [125, 97, 255];
             }
-            else if (val ==3){
-                 var mixedrgb = [255,40,40];
+            else if (val == 3) {
+                var mixedrgb = [255, 40, 40];
             }
             //var rgb = [Math.random() * 256, Math.random() * 256, Math.random() * 256];
             //var mix = [brightness * 51, brightness * 51, brightness * 51]; //51 => 255/5
             //var mixedrgb = [rgb[0] + mix[0], rgb[1] + mix[1], rgb[2] + mix[2]].map(function (x) {
-                //return Math.round(x / 2.0)
+            //return Math.round(x / 2.0)
             //})
             return "rgb(" + mixedrgb.join(",") + ")";
         }
@@ -163,3 +199,33 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
         };
     }]);// end of bootstrap modal
 
+maincontrollerModule.controller('TimepickerDemoCtrl', ['$scope', 'ngmodel', function ($scope, ngmodel) {
+
+        var d = new Date();
+        d.setHours(8);
+        d.setMinutes(0);
+        $scope.mytime = d;
+
+        $scope.hstep = 1;
+        $scope.mstep = 15;
+
+        $scope.options = {
+            hstep: [1, 2, 3],
+            mstep: [1, 5, 10, 15, 25, 30]
+        };
+        $scope.changed = function (index) {
+            ngmodel.results.days[index].setStart($scope.mytime.getHours(), $scope.mytime.getMinutes())
+            $scope.updateActivitiesTime();
+        };
+
+        $scope.updateActivitiesTime = function () {
+            for (var i = 0; i < Number($scope.days.length); i++) {
+                var flag = $scope.days[i]._start;
+                angular.forEach($scope.days[i]._activities, function (activity) {
+                    activity.setStart(flag);
+                    activity.setEnd(flag + activity.getLength());
+                    flag = flag + activity.getLength();
+                });
+            }
+        }
+    }]);

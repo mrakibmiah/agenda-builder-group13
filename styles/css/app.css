@@ -4,6 +4,11 @@ body {
 	font: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
 }
 
+.navbar-brand {
+  font-size: 23px;
+  font-family: "Chalkduster";
+}
+
 #activityForm label{
     display: block;
     float: left;
@@ -46,19 +51,6 @@ body {
     top: -650px;
     left: 400px;
 }
-table, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-table,  th, td {
-    padding: 10px;
-}
-table,  th{
-    border-top-color:white;
-    border-bottom-color: white;
-    border-left-color:white;
-    border-collapse: collapse;
-}
 
 .leftbar_wrapper{
     background: white;
@@ -74,27 +66,23 @@ table,  th{
     margin-top: 12px;
 }
 
-<<<<<<< HEAD
-p {
-    padding-left: 10px;
-}
-=======
+
 .DayColHeader {
     background: #BEB799;
 }
 
 /* graphical timeline representation*/
 .progress-bar-presentation {
-    background-color: blue;
+    background-color: #587498; /*blue*/
 }
 .progress-bar-group-work {
-    background-color: red;
+    background-color: #E86850; /*red*/
 }
 .progress-bar-discussion {
-    background-color: green;
+    background-color: #55A763; /*green*/
 }
 .progress-bar-break {
-    background-color: yellow;
+    background-color: #FFD800; /*yellow*/
 }
 
 /*Angular Animation*/
@@ -128,6 +116,41 @@ p {
 ul.cards > li:hover{
     border: 1px solid #333;
     transition: linear all .1s;
+}
+
+.sample-show-hide {
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+}
+
+.sample-show-hide.ng-hide {
+    opacity:0;
+}
+
+
+.animate-repeat {
+
+}
+
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter,
+.animate-repeat.ng-leave {
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+}
+
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter {
+    opacity:0;
+    max-height:0;
+}
+
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active {
+    opacity:1;
+    max-height:40px;
 }
 
 
@@ -199,5 +222,10 @@ ul.cards > li:hover{
   background-color: white;
   color: #CC0052;
 }
+
+.form-control.ng-dirty.ng-invalid-required{
+  border-color: #AD3333;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 4px ##FF6600;
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 4px ##FF6600;
+}
   
->>>>>>> e85bb75133933b88be402ef54c23d1464b86b943

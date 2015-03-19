@@ -1,8 +1,15 @@
     <div as-sortable-item-handle>
+        <a title="Delete Activity" ng-click="removeActivityDay($parent.$parent.$parent.$index,$index)">
+            <i class="glyphicon glyphicon-remove-sign deleteActivity"></i></a>
+        <a title="Move Activity" ng-click="moveActivityBack($parent.$parent.$parent.$index,$index)">
+         <i class="glyphicon  glyphicon-circle-arrow-left moveActivity"></i></a>
         <div class="row">
+               
             <div class="col-sm-10">
                 <!--<span class="btn-link"><a data-no-drag target=_top href="https://github.com/a5hik/ng-sortable">test no-drag href</a></span>-->
-                <span class="card-title">{{item.getLength()}}-{{item.getName()}}</span>
+                <span class="card-title">{{item.getStart()}} - {{item.getEnd()}} - {{item.getName()}}</span>
+                <!-- <span class="card-title">{{$index}}</span> -->
+                <!-- <span>Length: {{day.getAccLength()}} min</span> -->
             </div>                                   
         </div>
     </div>
