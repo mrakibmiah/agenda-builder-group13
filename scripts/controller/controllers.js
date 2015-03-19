@@ -33,13 +33,13 @@ maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($sco
         }
 
         $scope.removeActivityDay = function(indexDay, index){
-            console.log("Day "+indexDay);
-            console.log("Act "+index);
             $scope.model.removeActivityDay(indexDay, index);
+            $scope.model.days[indexDay].upDateGraphicalTimeLine();
             
         }
         $scope.moveActivityBack = function(indexDay, index){
             $scope.model.moveActivity(indexDay, index, null, null);
+            $scope.model.days[indexDay].upDateGraphicalTimeLine();
         }
     }]);
 
