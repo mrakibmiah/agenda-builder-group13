@@ -1,7 +1,7 @@
 <div ng-controller="ModalCtrl">
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
-        <h3 class="modal-title">Add New Activity</h3>
+            <h3 class="modal-title">Add New Activity</h3>
         </div>
         <div class="modal-body">
         <div class="row">
@@ -22,10 +22,10 @@
         </div>
 
         <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        </div>
+            <button class="btn btn-primary" ng-disabled="formValidate.$invalid" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>  
     </script>  
     <button class="btn btn-primary" ng-click="open('sm')">Add Activity</button>
-    <button class="btn btn-default" ng-click="addDay()">Add Day</button>
+    <button class="btn btn-add-day" ng-click="addDay()">Add Day</button>
 </div> <!--end of popup modal controller-->

@@ -2,10 +2,10 @@
 
 // The possible activity types
 var ActivityType = [
-    {value: 0, label: 'Presentation', color: "blue"},
-    {value: 1, label: 'Group Work', color: "red"},
-    {value: 2, label: 'Discussion', color: "green"},
-    {value: 3, label: 'Break', color: "yellow"}
+    {value: 0, label: 'Presentation',color:"#587498"}, //blue
+    {value: 1, label: 'Group Work',color:"#E86850"}, //red
+    {value: 2, label: 'Discussion',color:"#55A763"}, //green
+    {value: 3, label: 'Break',color:"#FFD800"} //yellow
 ];
 
 // This is an activity constructor
@@ -94,6 +94,7 @@ function Activity(name, length, typeid, description, color) {
     this.getType = function () {
         return ActivityType[_typeid].label;
     };
+
 }
 
 // This is a day consturctor. You can use it to create days, 
@@ -103,6 +104,17 @@ function Day(startH, startM) {
     this._start = startH * 60 + startM;
     this._activities = [];
     this._stacked = [];
+ //   this._accLength = 8;
+
+
+    this.getAccLength = function () {
+        var accLength = 8;
+        angular.forEach(this._activities, function (activity) {
+                accLength += activity.getLength();
+        });
+        return accLength; 
+//        return 5201314;
+    };
 
     this.upDateGraphicalTimeLine = function () {
         this._stacked = [];
@@ -134,17 +146,27 @@ function Day(startH, startM) {
         return totalLength;
     };
 
+
     // returns the string representation Hours:Minutes of 
     // the end time of the day
     this.getEnd = function () {
         var end = this._start + this.getTotalLength();
-        return Math.floor(end / 60) + ":" + end % 60;
+        if (end%60==0){
+            return Math.floor(end / 60) + ":00";
+        }else{
+            return Math.floor(end / 60) + ":" + end % 60;    
+        }
+        
     };
 
     // returns the string representation Hours:Minutes of 
     // the start time of the day
     this.getStart = function () {
-        return Math.floor(this._start / 60) + ":" + this._start % 60;
+        if (this._start%60==0){
+            return Math.floor(this._start / 60) + ":00";
+        }else{
+            return Math.floor(this._start / 60) + ":" + this._start % 60;
+        }
     };
 
     // returns the length (in minutes) of activities of certain type
@@ -166,6 +188,7 @@ function Day(startH, startM) {
             this._activities.splice(position, 0, activity);
         } else {
             this._activities.push(activity);
+
         }
     };
 
@@ -188,6 +211,7 @@ function Day(startH, startM) {
         var activity = this._removeActivity(oldposition);
         this._addActivity(activity, newposition);
     };
+
 }
 
 
