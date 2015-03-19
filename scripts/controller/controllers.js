@@ -37,13 +37,14 @@ maincontrollerModule.controller('MainCtrl', ['$scope', '$modal', '$log', 'ngmode
                 size: size,
                 day: d,
                 position : a,
+                
                 resolve: {
                     options: function () {
                         return $scope.options;
                     }
                 }
             });
-
+console.log(d,a);
             modalInstance.result.then(function () {
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());

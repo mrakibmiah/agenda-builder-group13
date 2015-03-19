@@ -25,7 +25,7 @@
                     </div>
                     <div class="drag-container col-sm-10">
                         <div class="col-sm-3 col-xs-3"
-                             ng-repeat="day in days"
+                             ng-repeat="day in days" ng-init="outerIndex = $index"
                              data-columnindex="{{$index}}" id="column{{$index}}">                           
                             <div class="column">                                
                                 <div ng-model="day._stacked" class="columnHeader DayColHeader">                                    
@@ -35,11 +35,10 @@
                                     <p><span>Day {{$index + 1}}</span></p>
                                     <p align="left"><span>Start: {{day.getStart()}}</span></p>
                                     <p align="left"><span>End: {{day.getEnd()}}</span></p>
-                                   <p> <span>Total: {{day.getTotalLength()}}Min</span></p>                              
-
+                                   <p> <span>Total: {{day.getTotalLength()}}Min</span></p>
                                 </div>
                                 <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
-                                    <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'" ng-click= "open('sm',a,b)">
+                                    <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'" ng-click= "open('sm',outerIndex,$index)">
                                         
                                     </li>
                                 </ul>
