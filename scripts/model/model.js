@@ -17,7 +17,23 @@ function Activity(name, length, typeid, description, color) {
     var _typeid = typeid;
     var _description = description;
     var _color = color;
+    var _start = 0;
+    var _end = 0;
 
+    this.setStart = function (start) {
+        _start = start;
+    }
+    this.setEnd = function (end) {
+        _end = end;
+    }
+    this.getEnd = function () {
+        var end = _end;
+        return Math.floor(end / 60) + ":" + end % 60;
+    };
+
+    this.getStart = function () {
+        return Math.floor(_start / 60) + ":" + _start % 60;
+    };
     // sets the name of the activity
     this.setName = function (name) {
         _name = name;
@@ -103,19 +119,20 @@ function Day(startH, startM) {
     this.upDateGraphicalTimeLine = function () {
         this._stacked = [];
         var types = ['presentation', 'group-work', 'discussion', 'break'];
+        var labels = ['Presentation', 'Group Work', 'Discussion', 'Break'];
         for (var i = 0, n = 4; i < n; i++) {
             var ln = this.getLengthByType(i);
             this._stacked.push({
-                value:  Math.floor(ln / this.getTotalLength() * 100),
-                type: types[i]
+                value: Math.floor(ln / this.getTotalLength() * 100),
+                type: types[i],
+                label: labels[i]
             });
         }
     }
 
     // sets the start time to new value
     this.setStart = function (startH, startM) {
-        this._start = startH * 60 + startM;
-        model.notifyObservers();
+        this._start = startH * 60 + startM;       
     }
 
     // returns the total length of the acitivities in 
