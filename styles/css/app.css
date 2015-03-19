@@ -200,5 +200,10 @@ ul.cards > li:hover{
   background-color: white;
   color: #CC0052;
 }
+
+.form-control.ng-dirty.ng-invalid-required{
+  border-color: #AD3333;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 4px ##FF6600;
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 4px ##FF6600;
+}
   
->>>>>>> e85bb75133933b88be402ef54c23d1464b86b943
