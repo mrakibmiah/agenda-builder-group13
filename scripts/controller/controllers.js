@@ -29,6 +29,19 @@ maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($sco
             return totalTimeLine;
         }  
         // createTestData(ngmodel.results);
+        $scope.removeActivity = function(index){
+            $scope.model.removeParkedActivity(index);
+        }
+
+        $scope.removeActivityDay = function(indexDay, index){
+            console.log("Day "+indexDay);
+            console.log("Act "+index);
+            $scope.model.removeActivityDay(indexDay, index);
+            
+        }
+        $scope.moveActivityBack = function(indexDay, index){
+            $scope.model.moveActivity(indexDay, index, null, null);
+        }
     }]);
 
 //angular drag and drop function

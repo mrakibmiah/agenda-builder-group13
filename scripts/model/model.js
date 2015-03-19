@@ -235,6 +235,13 @@ function Model() {
         this.days.splice(index, 1);
     }
 
+    this.removeActivityDay = function (indexDay, index) {
+        act=this.days[indexDay]._activities.splice(index,1)[0];
+        this.notifyObservers;
+        console.log("remove");
+        return act;
+    }
+
     // add an activity to parked activities
     this.addParkedActivity = function (activity, position) {
         this.addActivity(activity, null, position);

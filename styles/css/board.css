@@ -162,7 +162,7 @@ div.task h3 {
     text-decoration: none;
 }
 
-.deleteDay, .addNewCard {
+.deleteDay, .addNewCard, .deleteActivity, .moveActivity {
     float: right;
     padding-right: 7px;  
 }

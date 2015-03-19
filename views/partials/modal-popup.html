@@ -16,7 +16,8 @@
                         <input name="activityDuration" ng-model="activityDuration" required placeholder="Duration in Min" type="number" min="1" class="form-control"/>
                         <span style="color:#AD3333" ng-show="formValidate.activityDuration.$dirty && formValidate.activityDuration.$invalid">
                             <span ng-show="formValidate.activityDuration.$error.required">Your activity needs a duration</span> 
-                            <span ng-show="formValidate.activityDuration.$error.min">Minimum duration is 1 minute</span> 
+                            <span ng-show="formValidate.activityDuration.$error.number">Please introduce a number!</span> 
+                             <span ng-show="formValidate.activityDuration.$error.min">The minimum duration is 1</span> 
                         </span>
                     </div> 
                 </form> 
