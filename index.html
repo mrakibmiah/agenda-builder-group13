@@ -13,7 +13,7 @@
         </div>
         <div class="container-fluid" ng-controller="MainCtrl">                     
             <div id="board" ng-controller="dragAndDropCtrl">
-                <div id="columns" class="row" >
+                <div ng-controller="ModalCtrl" id="columns" class="row" >
                     <div class="leftbar_wrapper col-sm-2">
                         <!--start creating popup modal for adding activities-->
                         <div id="modal-pupup" ng-include="'views/partials/modal-popup.html'"></div>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="drag-container col-sm-10">
                         <div class="col-sm-3 col-xs-3 animate-repeat"
-                             ng-repeat="day in days"
+                             ng-repeat="day in days" ng-init="parentIndex = $index"
                              data-columnindex="{{$index}}" id="column{{$index}}">                           
                             <div class="column">                                
                                 <div ng-model="day._stacked" class="columnHeader">                                    
@@ -38,7 +38,7 @@
                                     <p><span>Total={{day.getTotalLength()}}Min</span></p>                             
                                 </div>
                                 <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
-                                    <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'">                                    
+                                    <li ng-click="open('sm',parentIndex,$index,1)" style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'">                                    
                                     </li>
                                 </ul>
                             </div>
