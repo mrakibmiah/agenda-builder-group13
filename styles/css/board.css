@@ -25,7 +25,7 @@
     background: #fafafa linear-gradient(to bottom, #ffffff, #f2f2f2) repeat-x;
     padding: 5px 0;
     font-weight: bold;    
-    border-bottom: 1px solid #dddddd;   
+    border-bottom: 1px solid #dddddd; 
 }
 
 #board .table thead th:first-of-type {
@@ -184,4 +184,25 @@ div.task h3 {
 }
 .columnHeader a{
     color: #666;
+}
+
+.arrowBreak{
+  color: #991B41;
+  position: relative;
+  top: -16px;
+  left: 52px;
+}
+
+.Title{
+    font-size: 18px;
+    color: #99003D;  
+}
+
+.textHeader{
+    padding-left: 10px;
+    font-weight: normal;
+}
+
+.timePicker{
+    padding-left: 14px;
 }

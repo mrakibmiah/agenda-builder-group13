@@ -13,34 +13,40 @@
         </div>
         <div class="container-fluid" ng-controller="MainCtrl">                     
             <div id="board" ng-controller="dragAndDropCtrl">
-                <div id="columns" class="row" >
+                <div ng-controller="ModalCtrl" id="columns" class="row" >
                     <div class="leftbar_wrapper col-sm-2">
                         <!--start creating popup modal for adding activities-->
-                        <div id="modal-pupup" ng-include="'views/partials/modal-popup.html'"></div>
-                        <div id="modal-edit" ng-include="'views/partials/newhtml.html'"></div>
+                        <div id="modal-pupup" ng-include="'views/partials/modal-popup.html'"></div>                        
                         <hr>
                         <label>Your Parked Activities</label>
                         <div data-columnindex="0" id="column0" ng-include="'views/partials/leftsidebar.html'">
                         </div>                            
                     </div>
                     <div class="drag-container col-sm-10">
-                        <div class="col-sm-3 col-xs-3 animate-repeat" ng-repeat="day in days"data-columnindex="{{$index}}" id="column{{$index}}" ng-init="outerIndex = $index">                      
+
+                        <div class="col-sm-3 col-xs-3"
+                             ng-repeat="day in days" ng-init="outerIndex = $index"
+                        <div class="col-sm-3 col-xs-3 animate-repeat"
+                             ng-repeat="day in days" ng-init="parentIndex = $index"
+                             data-columnindex="{{$index}}" id="column{{$index}}">                           
                             <div class="column">                                
                                 <div ng-model="day._stacked" class="columnHeader">                                    
-                                    <progress class="sample-show-hide" ng-show="checkGraphicaLength($index) > 0"><bar tooltip="{{bar.label}}" ng-repeat="bar in day._stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></bar></progress>
+                                    <progress class="sample-show-hide" ng-show="checkGraphicaLength($index) > 0"><bar tooltip="{{bar.label}}" ng-repeat="bar in day._stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></bar></progress>                                 
+                                    <i class="glyphicon  glyphicon-circle-arrow-up arrowBreak" ng-show="checkGraphicaLength($index)"> </i>
                                     <a title="Delete Day" ng-click="removeDay($index)">
-                                        <i class="glyphicon glyphicon-remove-sign deleteDay"></i></a>
-                                    <div ng-controller="TimepickerDemoCtrl"><timepicker ng-model="mytime" ng-change="changed($index)" hour-step="hstep" minute-step="mstep" show-meridian="false"></timepicker></div>                                                        
-                                    <p><span>Day {{$index + 1}}</span></p>
+                                        <i class="glyphicon glyphicon-remove-sign deleteDay"></i></a>                                          
+                                    <p class="Title"><span>Day {{$index + 1}}</span></p>
+                                    <p align="left"><span class="textHeader">Start time (day): </span></p>
+                                    <div class="timePicker" ng-controller="TimepickerDemoCtrl"><timepicker ng-model="mytime" ng-change="changed($index)" hour-step="hstep" 
+                                                                                                           minute-step="mstep" show-meridian="false"></timepicker></div>           
+                                    <br>
+                                    <p align="left"><span class="textHeader">Start: {{day.getStart()}}</span></p>
+                                    <p align="left"><span class="textHeader">End: {{day.getEnd()}}</span></p>
+                                    <p> <span>Total: {{day.getTotalLength()}} min</span></p>
 
-                                    <p align="left"><span>Start: {{day.getStart()}}</span></p>
-                                    <p align="left"><span>End: {{day.getEnd()}}</span></p>
-                                   <p> <span>Total: {{day.getTotalLength()}}Min</span></p>
-
-                                    </div>
+                                </div>
                                 <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
-                                    <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'" ng-click= "open('sm',outerIndex,$index)">
-                                        
+                                    <li ng-click="open('sm', parentIndex, $index, 1)" style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'">                                    
                                     </li>
                                 </ul>
                             </div>
