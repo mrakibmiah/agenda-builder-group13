@@ -1,14 +1,13 @@
 // intilaie the controller module
 var maincontrollerModule = angular.module('maincontrollerModule', ["modelModule"]);
-<<<<<<< HEAD
-maincontrollerModule.controller('MainCtrl', ['$scope', '$modal', '$log', 'ngmodel', function ($scope, $modal, $log, ngmodel){
+
+maincontrollerModule.controller('MainCtrl', ['$scope', '$modal', '$log', 'ngmodel','$rootScope',function ($scope, $modal, $log, ngmodel,$rootScope){
         $scope.tomas = 'age';
-=======
-maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($scope, ngmodel) {
->>>>>>> origin/development
         $scope.model = ngmodel.results; // get the model object    
         $scope.numberOfcolumns = $scope.model.days.length;
         $scope.type = [];
+        $rootScope.dayIndex=0;
+        $rootScope.Index=0;
 
         $scope.addDay = function () {
             $scope.model.addDay();
@@ -33,35 +32,35 @@ maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($sco
             return totalTimeLine;
         }  
         // createTestData(ngmodel.results);
-<<<<<<< HEAD
-                       $scope.options = ActivityType;
-        $scope.open = function (size,d,a) {
+
+        $scope.options = ActivityType;
+        $scope.open = function (size,indexDay,index) {
+            $rootScope.dayIndex=indexDay;
+            $rootScope.Index=index;
             var modalInstance = $modal.open({
                 templateUrl:'myTaskviewContent.html',
-                controller:'ModalInstanceCtrl',
+               controller: 'ModalInstanceCtrl',
                 size: size,
-                day: d,
-                position : a,
-                
+                dayIndex:indexDay,
+                 Index:index,
                 resolve: {
                     options: function () {
                         return $scope.options;
                     }
                 }
             });
-console.log(d,a);
+//console.log(indexDay,index);
+
             modalInstance.result.then(function () {
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
-        
-=======
         $scope.removeActivity = function(index){
             $scope.model.removeParkedActivity(index);
         }
 
-        $scope.removeActivityDay = function(indexDay, index){
+        $rootScope.removeActivityDay = function(indexDay, index){
             $scope.model.removeActivityDay(indexDay, index);
             $scope.model.days[indexDay].upDateGraphicalTimeLine();
             
@@ -70,7 +69,7 @@ console.log(d,a);
             $scope.model.moveActivity(indexDay, index, null, null);
             $scope.model.days[indexDay].upDateGraphicalTimeLine();
         }
->>>>>>> origin/development
+
     }]);
 
 //angular drag and drop function
@@ -150,11 +149,13 @@ ngBootstrapUIModule.controller('ModalCtrl', ['$scope', '$modal', '$log', 'ngmode
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
-ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance", "options", "ngmodel", function ($scope, $modalInstance, options, ngmodel) {
+ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance", "options", "ngmodel","$rootScope" ,function ($scope, $modalInstance, options, ngmodel,$rootScope) {
         $scope.options = options;
         $scope.activityType = options[0];
         $scope.model = ngmodel.results;
-
+        indexDay=$rootScope.dayIndex;
+        index=$rootScope.Index;
+        console.log(indexDay , index);
         $scope.ok = function () {
             // $scope.color = $scope.getRandomColor();
             // alert($scope.activityType.value);
@@ -163,14 +164,15 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
             $modalInstance.close();
             //$modalInstance.close($scope.selected.item);  
         };
-         $scope.change = function () {
+         $scope.Change = function () {
           // $scope.color = $scope.getRandomColor();
             // alert($scope.activityType.value);
-            $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.activityType.color),Day($modalInstance.d));
+            $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.activityType.color),(indexDay),(index));
+            $rootScope.removeActivityDay(indexDay,index+1);
             // console.log($scope.model.parkedActivities[0].getName());
             $modalInstance.close();
             //$modalInstance.close($scope.selected.item);  
-        };
+        }           
         $scope.getRandomColor = function () {
 
             var val = $scope.activityType.value;
