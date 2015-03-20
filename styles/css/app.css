@@ -235,7 +235,11 @@ ul.cards > li:hover{
   top: -16px;
   left: 52px;
   
-  
+}
 
+
+.deleteActivity,
+.moveActivity {
+  color: #E6E6E6;
 }
   
