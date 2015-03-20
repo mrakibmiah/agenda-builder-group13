@@ -28,12 +28,21 @@ function Activity(name, length, typeid, description, color) {
     }
     this.getEnd = function () {
         var end = _end;
-        return Math.floor(end / 60) + ":" + end % 60;
+        
+        if (end % 60==0){
+            return Math.floor(end / 60) + ":00";
+        }else if (end%60<10){
+            return Math.floor(end / 60) + ":0"+ end % 60;
+        }else{
+            return Math.floor(end / 60) + ":" + end % 60;
+        }
     };
 
     this.getStart = function () {
         if (_start % 60==0){
             return Math.floor(_start / 60) + ":00";
+        }else if (_start%60<10){
+            return Math.floor(_start / 60) + ":0"+ _start % 60;
         }else{
             return Math.floor(_start / 60) + ":" + _start % 60;
         }
@@ -151,10 +160,13 @@ function Day(startH, startM) {
     // the end time of the day
     this.getEnd = function () {
         var end = this._start + this.getTotalLength();
-        if (end%60==0){
+
+        if (end % 60==0){
             return Math.floor(end / 60) + ":00";
+        }else if (end%60<10){
+            return Math.floor(end / 60) + ":0"+ end % 60;
         }else{
-            return Math.floor(end / 60) + ":" + end % 60;    
+            return Math.floor(end / 60) + ":" + end % 60;
         }
         
     };
@@ -162,8 +174,10 @@ function Day(startH, startM) {
     // returns the string representation Hours:Minutes of 
     // the start time of the day
     this.getStart = function () {
-        if (this._start%60==0){
+        if (this._start % 60==0){
             return Math.floor(this._start / 60) + ":00";
+        }else if (this._start%60<10){
+            return Math.floor(this._start / 60) + ":0"+ this._start % 60;
         }else{
             return Math.floor(this._start / 60) + ":" + this._start % 60;
         }
