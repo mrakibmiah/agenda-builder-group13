@@ -29,15 +29,17 @@
                                 <div ng-model="day._stacked" class="columnHeader">                                    
                                     <progress class="sample-show-hide" ng-show="checkGraphicaLength($index) > 0"><bar tooltip="{{bar.label}}" ng-repeat="bar in day._stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></bar></progress>                                 
                                     <i class="glyphicon  glyphicon-circle-arrow-up arrowBreak" ng-show="checkGraphicaLength($index)"> </i>
-                                    <div ng-controller="TimepickerDemoCtrl"><timepicker ng-model="mytime" ng-change="changed($index)" hour-step="hstep" 
-                                    minute-step="mstep" show-meridian="false"></timepicker></div>                                                        
-                                    <p><span>Day {{$index + 1}}</span></p>
+                                                                                 
+                                    <p class="Title"><span>Day {{$index + 1}}</span></p>
+                                    <p align="left"><span class="textHeader">Start time (day): </span></p>
+                                    <div class="timePicker" ng-controller="TimepickerDemoCtrl"><timepicker ng-model="mytime" ng-change="changed($index)" hour-step="hstep" 
+                                    minute-step="mstep" show-meridian="false"></timepicker></div>           
+                                    <br>
+                                    <p align="left"><span class="textHeader">Start: {{day.getStart()}}</span></p>
+                                    <p align="left"><span class="textHeader">End: {{day.getEnd()}}</span></p>
+                                   <p> <span>Total: {{day.getTotalLength()}} min</span></p>
 
-                                    <p align="left"><span>Start: {{day.getStart()}}</span></p>
-                                    <p align="left"><span>End: {{day.getEnd()}}</span></p>
-                                   <p> <span>Total: {{day.getTotalLength()}}Min</span></p>
-
-                                    </div>
+                                </div>
                                 <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
                                     <li style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'" ng-click= "open('sm',outerIndex,$index)">
                                         
