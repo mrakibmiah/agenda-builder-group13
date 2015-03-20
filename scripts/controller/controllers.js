@@ -1,9 +1,13 @@
 // intilaie the controller module
 var maincontrollerModule = angular.module('maincontrollerModule', ["modelModule"]);
-maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($scope, ngmodel) {
+
+maincontrollerModule.controller('MainCtrl', ['$scope', '$modal', '$log', 'ngmodel','$rootScope',function ($scope, $modal, $log, ngmodel,$rootScope){
+        $scope.tomas = 'age';
         $scope.model = ngmodel.results; // get the model object    
         $scope.numberOfcolumns = $scope.model.days.length;
         $scope.type = [];
+        $rootScope.dayIndex=0;
+        $rootScope.Index=0;
 
         $scope.addDay = function () {
             $scope.model.addDay();
@@ -41,6 +45,7 @@ maincontrollerModule.controller('MainCtrl', ['$scope', 'ngmodel', function ($sco
             $scope.model.moveActivity(indexDay, index, null, null);
             $scope.model.days[indexDay].upDateGraphicalTimeLine();
         }
+
     }]);
 
 //angular drag and drop function
@@ -91,6 +96,7 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
                     }, //Do what you want},
                     containment: '#board'//optional param.
                 };
+     
 
             }]);
 

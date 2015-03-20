@@ -1,13 +1,13 @@
-<div>
-    <script type="text/ng-template" id="myModalContent.html">
+<div ng-controller="ModalCtrl">
+    <script type="text/ng-template" id="myTaskviewContent.html">
         <div class="modal-header">
-            <h3 class="modal-title">{{modalTitle}}</h3>
+        <h3 class="modal-title">Edit Activity</h3>
         </div>
         <div class="modal-body">
-        <div class="row">
+       <div class="row">
                 <form name="formValidate">
                     <div class="form-group">
-                        <input name="activityName" ng-model="activityName" required placeholder="Name" type="text" class="form-control"/>
+                        <input name="activityName" ng-model="activityName" required placeholder={{item.setname()}} type="text" class="form-control"/>
                         <span style="color:#AD3333" ng-show="formValidate.activityName.$dirty && formValidate.activityName.$invalid">
                             <span ng-show="formValidate.activityName.$error.required">Your activity needs a name</span>
                         <span>    
@@ -33,10 +33,9 @@
         </div>
 
         <div class="modal-footer">
-            <button class="btn btn-primary" ng-disabled="formValidate.$invalid" ng-click="ok()">OK</button>
+            <button class="btn btn-primary" ng-disabled="formValidate.$invalid" ng-click="Change()">Modify</button>
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
         </div>  
-    </script>  
-    <button class="btn btn-primary" ng-click="open1('sm')">Add Activity</button>
-    <button class="btn btn-add-day" ng-click="addDay()">Add Day</button>
+    </script> 
+    
 </div> <!--end of popup modal controller-->

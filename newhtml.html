@@ -1,0 +1,30 @@
+<div ng-controller="MainCtrl">
+    <script type="text/ng-template" id="myTaskviewContent.html">
+        <div class="modal-header">
+        <h3 class="modal-title">Add New Activity</h3>
+        </div>
+        <div class="modal-body">
+        <div class="row">
+        <div class="form-group">
+        <input ng-model="activityName" ng-dname="" placeholder="Name" type="text" class="form-control"/>
+        </div> 
+        <div class="form-group">
+        <input ng-model="activityDuration" ng-dtime="" placeholder="Duration in Min" type="text" class="form-control"/>             
+        </div>  
+        <div class="form-group">                    
+        <select class="form-control" ng-model="activityType"
+        ng-options="opt as opt.label for opt in options">
+        </select>
+        </div>  
+        <div class="form-group">
+        <textarea  ng-model="activityDesc" placeholder="Description" class="form-control" rows="3"></textarea>
+        </div>  
+        </div>
+
+        <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>  
+    
+</div> <!--end of popup modal controller-->

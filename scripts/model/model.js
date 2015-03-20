@@ -32,7 +32,11 @@ function Activity(name, length, typeid, description, color) {
     };
 
     this.getStart = function () {
-        return Math.floor(_start / 60) + ":" + _start % 60;
+        if (_start % 60==0){
+            return Math.floor(_start / 60) + ":00";
+        }else{
+            return Math.floor(_start / 60) + ":" + _start % 60;
+        }
     };
     // sets the name of the activity
     this.setName = function (name) {
