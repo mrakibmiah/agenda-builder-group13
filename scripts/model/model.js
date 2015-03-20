@@ -40,8 +40,7 @@ function Activity(name, length, typeid, description, color) {
     };
     // sets the name of the activity
     this.setName = function (name) {
-        _name = name;
-        model.notifyObservers();
+        _name = name;      
     }
 
     // get the name of the activity
@@ -52,7 +51,7 @@ function Activity(name, length, typeid, description, color) {
     // sets the name of the activity
     this.setColor = function (color) {
         _color = color;
-        model.notifyObservers();
+       
     }
 
     // get the name of the activity
@@ -62,8 +61,7 @@ function Activity(name, length, typeid, description, color) {
 
     // sets the length of the activity
     this.setLength = function (length) {
-        _length = length;
-        model.notifyObservers();
+        _length = length;       
     }
 
     // get the name of the activity
@@ -73,8 +71,7 @@ function Activity(name, length, typeid, description, color) {
 
     // sets the typeid of the activity
     this.setTypeId = function (typeid) {
-        _typeid = typeid;
-        model.notifyObservers();
+        _typeid = typeid;       
     }
 
     // get the type id of the activity
@@ -84,8 +81,7 @@ function Activity(name, length, typeid, description, color) {
 
     // sets the description of the activity
     this.setDescription = function (description) {
-        _description = description;
-        model.notifyObservers();
+        _description = description;       
     }
 
     // get the description of the activity
