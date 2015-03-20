@@ -27,10 +27,10 @@
                         <div class="col-sm-3 col-xs-3 animate-repeat" ng-repeat="day in days"data-columnindex="{{$index}}" id="column{{$index}}" ng-init="outerIndex = $index">                      
                             <div class="column">                                
                                 <div ng-model="day._stacked" class="columnHeader">                                    
-                                    <progress class="sample-show-hide" ng-show="checkGraphicaLength($index) > 0"><bar tooltip="{{bar.label}}" ng-repeat="bar in day._stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></bar></progress>
-                                    <a title="Delete Day" ng-click="removeDay($index)">
-                                        <i class="glyphicon glyphicon-remove-sign deleteDay"></i></a>
-                                    <div ng-controller="TimepickerDemoCtrl"><timepicker ng-model="mytime" ng-change="changed($index)" hour-step="hstep" minute-step="mstep" show-meridian="false"></timepicker></div>                                                        
+                                    <progress class="sample-show-hide" ng-show="checkGraphicaLength($index) > 0"><bar tooltip="{{bar.label}}" ng-repeat="bar in day._stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></bar></progress>                                 
+                                    <i class="glyphicon  glyphicon-circle-arrow-up arrowBreak" ng-show="checkGraphicaLength($index)"> </i>
+                                    <div ng-controller="TimepickerDemoCtrl"><timepicker ng-model="mytime" ng-change="changed($index)" hour-step="hstep" 
+                                    minute-step="mstep" show-meridian="false"></timepicker></div>                                                        
                                     <p><span>Day {{$index + 1}}</span></p>
 
                                     <p align="left"><span>Start: {{day.getStart()}}</span></p>
