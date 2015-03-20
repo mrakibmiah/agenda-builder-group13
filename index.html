@@ -24,8 +24,7 @@
                     </div>
                     <div class="drag-container col-sm-10">
 
-                        <div class="col-sm-3 col-xs-3"
-                             ng-repeat="day in days" ng-init="outerIndex = $index"
+
                         <div class="col-sm-3 col-xs-3 animate-repeat"
                              ng-repeat="day in days" ng-init="parentIndex = $index"
                              data-columnindex="{{$index}}" id="column{{$index}}">                           
@@ -46,7 +45,7 @@
 
                                 </div>
                                 <ul class="cards card-list" as-sortable="sortOptionListener" ng-model="day._activities">
-                                    <li ng-click="open('sm', parentIndex, $index, 1)" style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'">                                    
+                                    <li ng-click="open('sm',1, parentIndex, $index)" style="background:{{item.getColor()}}" class="card" ng-repeat="item in day._activities" data-as-sortable-item ng-include="'views/partials/activity.html'">                                    
                                     </li>
                                 </ul>
                             </div>

@@ -1,11 +1,4 @@
 // intilaie the controller module
-
-
-
-
-
-
-
 var maincontrollerModule = angular.module('maincontrollerModule', ["modelModule"]);
 maincontrollerModule.controller('MainCtrl', ['$scope', '$modal', '$log', 'ngmodel', function ($scope, $modal, $log, ngmodel){
         $scope.tomas = 'age';
@@ -108,7 +101,7 @@ angular.module('dragAndDropControllerModule', ['ui.sortable', "modelModule"]).
 var ngBootstrapUIModule = angular.module('ngBootstrapUIModule', ['modelModule']);
 ngBootstrapUIModule.controller('ModalCtrl', ['$scope', '$modal', '$log', 'ngmodel', function ($scope, $modal, $log, ngmodel) {
         $scope.options = ActivityType;
-        $scope.open = function (size, a, b, edit) {
+        $scope.open = function (size, edit,a, b) {
 
             var modalInstance = $modal.open({
                 templateUrl: 'myModalContent.html',
@@ -119,7 +112,7 @@ ngBootstrapUIModule.controller('ModalCtrl', ['$scope', '$modal', '$log', 'ngmode
                         return $scope.options;
                     },
                     params: function () {
-                        var param = [a, b, edit];
+                        var param = [edit,a, b];
                         return param;
                     }
                 }
@@ -141,23 +134,37 @@ ngBootstrapUIModule.controller('ModalInstanceCtrl', ["$scope", "$modalInstance",
         $scope.params = params;
         $scope.modalTitle = 'Add New Activity';
 
-        if (params[2]) {
+        if (params[0]==1) {
             // get all the activites properties
-            $scope.activityName = $scope.model.days[params[0]]._activities[params[1]].getName();
-            $scope.activityDuration = $scope.model.days[params[0]]._activities[params[1]].getLength();
-            $scope.activityType = $scope.options[$scope.model.days[params[0]]._activities[params[1]].getTypeId()];
-            $scope.activityDesc = $scope.model.days[params[0]]._activities[params[1]].getDescription();
+            $scope.activityName = $scope.model.days[params[1]]._activities[params[2]].getName();
+            $scope.activityDuration = $scope.model.days[params[1]]._activities[params[2]].getLength();
+            $scope.activityType = $scope.options[$scope.model.days[params[2]]._activities[params[2]].getTypeId()];
+            $scope.activityDesc = $scope.model.days[params[1]]._activities[params[2]].getDescription();
             $scope.modalTitle = 'Edit Activity';
         }
-
+        else if(params[0]==2){
+            $scope.activityName = $scope.model.parkedActivities[params[1]].getName();
+            $scope.activityDuration = $scope.model.parkedActivities[params[1]].getLength();
+            $scope.activityType = $scope.options[$scope.model.parkedActivities[params[1]].getTypeId()];
+            $scope.activityDesc = $scope.model.parkedActivities[params[1]].getDescription();
+            $scope.modalTitle = 'Edit Activity';
+            
+        }
         $scope.ok = function () {
-            if (params[2]) {
+            if (params[0]==1) {
                 // update the activity's properties
-                $scope.model.days[params[0]]._activities[params[1]].setName($scope.activityName);
-                $scope.model.days[params[0]]._activities[params[1]].setLength($scope.activityDuration);
-                $scope.model.days[params[0]]._activities[params[1]].setTypeId($scope.activityType.value);
-                $scope.model.days[params[0]]._activities[params[1]].setDescription($scope.activityDesc);
-                $scope.model.days[params[0]]._activities[params[1]].setColor($scope.activityType.color);
+                $scope.model.days[params[1]]._activities[params[2]].setName($scope.activityName);
+                $scope.model.days[params[1]]._activities[params[2]].setLength($scope.activityDuration);
+                $scope.model.days[params[1]]._activities[params[2]].setTypeId($scope.activityType.value);
+                $scope.model.days[params[1]]._activities[params[2]].setDescription($scope.activityDesc);
+                $scope.model.days[params[1]]._activities[params[2]].setColor($scope.activityType.color);
+            }
+            else if(params[0]==2){
+                $scope.model.parkedActivities[params[1]].setName($scope.activityName);
+                $scope.model.parkedActivities[params[1]].setLength($scope.activityDuration);
+                $scope.model.parkedActivities[params[1]].setTypeId($scope.activityType.value);
+                $scope.model.parkedActivities[params[1]].setDescription($scope.activityDesc);
+                $scope.model.parkedActivities[params[1]].setColor($scope.activityType.color);
             }
             else {
                 $scope.model.addActivity(new Activity($scope.activityName, Number($scope.activityDuration), $scope.activityType.value, $scope.activityDesc, $scope.activityType.color));
